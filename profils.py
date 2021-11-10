@@ -139,5 +139,5 @@ def voir_profil():
                     print("     ----  Affichage du profil ----")
                     print("          Pseudo :",data_profil[0])
                     print("           Genre :",genre[int(data_profil[1])])
-                    print("             Age :",age[int(data_profil[2])])
+                    print("             Âge :",age[int(data_profil[2])])
                     print("Style de lecture :",style_de_lecture[int(data_profil[3])])
