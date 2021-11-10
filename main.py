@@ -33,7 +33,7 @@ def menu_profils():
         if choix == 1: ajout_profil()
         elif choix == 2: voir_profil()
         elif choix == 3: print("modification d'un profil") #todo modification d'un profil
-        elif choix == 4: print("suppression d'un profil") #todo suppression d'un profil
+        elif choix == 4: suppr_profil()
         elif choix == 5: continuer = False
 
 def menu_livres():

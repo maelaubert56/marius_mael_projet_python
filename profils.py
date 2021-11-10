@@ -27,7 +27,7 @@ def test_pseudo():
                 deja_present = True
                 break
 
-    return pseudo, readers_data, deja_present
+    return pseudo, deja_present
 
 
 def ajout_profil():
@@ -104,9 +104,17 @@ def suppr_profil():
         while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
             continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous continuer ? o/n ")
         if continuer in {'oui', 'Oui', 'O', 'o'}:
-            with open('readers.txt', 'w') as f_readers:
+
+            with open('readers.txt', 'r') as f_readers:
+                liste_readers=[]
                 for ligne in f_readers:
-                    if pseudo in ligne
+                    if pseudo != ligne.split(", ")[0]:
+                        liste_readers.append(ligne)
+            with open('readers.txt','w') as f_readers:
+                for i in range(len(liste_readers)):
+                    f_readers.write(liste_readers[i])
+
+
 
 def voir_profil():
     genre = ["Homme", "Femme", "Peu importe"]
