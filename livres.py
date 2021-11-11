@@ -37,8 +37,39 @@ def ajout_livre() :
         print(" ✔ livre ajouté\n")
 
 def modifier_livre() :
-    with open("books.txt", "r") as f_books:
-        print("temporaire")
+    continuer = 'o'
+    deja_present = False
+    while continuer in {'oui', 'Oui', 'O', 'o'}:
+        nom_livre, deja_present = test_livre()
+        continuer = 'n'
+        if deja_present == False:  # si le livre n'existe pas, on propose de ressaisir ou de quitter
+            continuer = input("Ce livre n'existe pas, voulez vous saisir un autre titre de livre ? o/n ")
+            while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
+                continuer = input(
+                    "Vous devez répondre 'o' ou 'n'...\nVoulez vous saisir un autre titre de livre ? o/n ")
+    if deja_present:
+        continuer = input("Vous allez modifier le livre '" + nom_livre + "'. Continuer ? o/n ")
+        while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
+            continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous continuer ? o/n ")
+        if continuer in {'oui', 'Oui', 'O', 'o'}:
+            new_titre=input("Veuillez saisir un nouveau titre pour ce livre :")
+            while new_titre==nom_livre :
+                print("Vous n'avez pas apporté de modifications")
+                new_titre = input("Veuillez saisir un nouveau titre pour ce livre :")
+
+
+            with open('books.txt', 'r') as f_books:  # les livres  sont contenus dans une nouvelle liste
+                liste_books = []
+                for ligne in f_books:
+                        liste_books.append(ligne[:-1])
+            with open('books.txt',
+                      'w') as f_books:
+                for i in range(len(liste_books)): # on modifie le livre souhaité grace à la liste
+                    if liste_books[i]==nom_livre:
+                        liste_books[i]=new_titre
+                    liste_books[i]=liste_books[i]+'\n' # on rajoute le retour à la ligne à chaque titre
+                    f_books.write(liste_books[i]) # on réécrit le fichier grace à la liste crée ulterieurement
+            print(" ✔ livre modifié\n")
 
 def supprimer_livre() :
         continuer = 'o'
@@ -46,7 +77,7 @@ def supprimer_livre() :
         while continuer in {'oui', 'Oui', 'O', 'o'}:
             nom_livre, deja_present = test_livre()
             continuer = 'n'
-            if deja_present == False:  # si le livre existe déjà, on propose de ressaisir ou de quitter
+            if deja_present == False:  # si le livre n'existe pas, on propose de ressaisir ou de quitter
                 continuer = input("Ce livre n'existe pas, voulez vous saisir un autre titre de livre ? o/n ")
                 while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
                     continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous saisir un autre titre de livre ? o/n ")
