@@ -41,8 +41,30 @@ def modifier_livre() :
         print("temporaire")
 
 def supprimer_livre() :
-    with open("books.txt", "r") as f_books:
-        print("temporaire")
+        continuer = 'o'
+        deja_present = False
+        while continuer in {'oui', 'Oui', 'O', 'o'}:
+            nom_livre, deja_present = test_livre()
+            continuer = 'n'
+            if deja_present == False:  # si le livre existe déjà, on propose de ressaisir ou de quitter
+                continuer = input("Ce livre n'existe pas, voulez vous saisir un autre titre de livre ? o/n ")
+                while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
+                    continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous saisir un autre titre de livre ? o/n ")
+        if deja_present:
+            continuer = input("Vous allez supprimer le livre '" + nom_livre + "'. Continuer ? o/n ")
+            while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
+                continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous continuer ? o/n ")
+            if continuer in {'oui', 'Oui', 'O', 'o'}:
+
+                with open('books.txt', 'r') as f_books: #les livres désirables sont contenus dans une nouvelle liste
+                    liste_books = []
+                    for ligne in f_books:
+                        if nom_livre != ligne[:-1]: # on exclut le \n présent sur chaque ligne du fichier dans la comparaison avec le titre du livre.
+                            liste_books.append(ligne)
+                with open('books.txt', 'w') as f_books: # on réécrit le fichier sans le livre indésirable grace à la liste crées ulterieurement.
+                    for i in range(len(liste_books)):
+                        f_books.write(liste_books[i])
+                print(" ✔ livre supprimé\n")
 
 
 def test_livre():

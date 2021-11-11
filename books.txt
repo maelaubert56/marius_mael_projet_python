@@ -1,5 +1,4 @@
 Débuter la programmation Java
-Apprendre Python
 Les Citations du Président Mao Tse-Toung
 Don Quichotte de la Manche
 Un conte de deux villes
@@ -18,3 +17,4 @@ L’Alchimiste
 Harry Potter et la Chambre des Secrets
 L’attrape-cœurs, The Catcher in the Rye
 e
+Apprendre Python

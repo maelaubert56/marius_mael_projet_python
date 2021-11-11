@@ -113,6 +113,7 @@ def suppr_profil():
             with open('readers.txt','w') as f_readers:
                 for i in range(len(liste_readers)):
                     f_readers.write(liste_readers[i])
+            print(" ✔ profil supprimé\n")
 
 
 
