@@ -11,6 +11,7 @@
 # Importation des fonctions externes
 from profils import *
 from livres import *
+from recommandation import *
 
 # Fonctions des menus
 def menu_profils():
