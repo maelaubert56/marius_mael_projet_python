@@ -11,6 +11,7 @@
 # Importation des fonctions externes
 from profils import *
 from livres import *
+from recommandation import *
 
 # Fonctions des menus
 def menu_profils():
@@ -58,21 +59,45 @@ def menu_livres():
         elif choix == 2:
             afficher_livres()
         elif choix == 3:
-            modifier_livre()  # todo modification d'un livre
+            modifier_livre()
         elif choix == 4:
-            supprimer_livre()  # todo suppression d'un livre
+            supprimer_livre()
         elif choix == 5:
             continuer = False
-    #todo partie dépot de livres
+
 
 def menu_recommandation():
     print("recommandation")
-    #todo partie recommandation
+    continuer = True
+    while continuer:  # boucle pour réafficher le menu des recommandations en boucle jusqu'à la fermeture du programme
+        ## menu de la partie recommandation
+        print("      ----- Recommandations -----")
+        print("   1 - Noter un livre")
+        print("   2 - Suggérer un livre")
+        print("   3 - Afficher matrice de notation")
+        print("   4 - Afficher matrice de similarité")
+        print("   5 - Retour")
+        choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4, ou 5 : ")
+        while choix not in {"1", "2", "3", "4", "5", "6"}:  ##Saisie sécurisée
+            choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4, 5 ou 6 : ")
+        print("")
+
+        choix = int(choix)
+        if choix == 1:
+            noter_livre()
+        elif choix == 2:
+            suggerer_livres()
+        elif choix == 3:
+            creer_matrice_notation()
+        elif choix == 4:
+            afficher_similarite()
+        elif choix == 5:
+            continuer = False
 
 
 #############################
 # Corps du programme principal
-
+creer_matrice_notation()
 if __name__ == '__main__':
     continuer = True
     while continuer:  ## boucle pour réafficher le menu principal en boucle jusqu'à la fermeture du programme
@@ -101,4 +126,3 @@ if __name__ == '__main__':
             print("Erreur inattendue...")
 
     print("      ------ Fin du programme ------")
-
