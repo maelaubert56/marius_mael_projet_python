@@ -9,6 +9,7 @@
 #----------------------------------------------------------------------------
 
 from livres import *
+from recommandation import *
 
 def test_pseudo():
     # on limite le pseudo à 20 caractère
@@ -95,10 +96,18 @@ def ajout_profil():
         # ajout des infos dans le fichier "readers.txt"
         with open('readers.txt', 'a') as f_readers:
             f_readers.write(pseudo + ", " + num_genre + ", " + num_age + ", " + num_style_lect + "\n")
+        print(" ✔ profil ajouté\n")
 
         with open('booksread.txt', 'a') as f_booksread:
             f_booksread.write(pseudo+", " + ", ".join(livres_lu) + "\n")
-        print(" ✔ profil ajouté\n")
+        print(" ✔ liste des livres lu mise à jour\n")
+
+        ## proposition de noter les livres lus
+
+
+        modif_matrice_note('ajout_profil')
+
+
 
 def modifier_profil() :
     continuer = 'o'
@@ -162,9 +171,13 @@ def suppr_profil():
 
             with open('readers.txt', 'r') as f_readers:
                 liste_readers=[]
+                i=0
                 for ligne in f_readers:
                     if pseudo != ligne.split(", ")[0]:
                         liste_readers.append(ligne)
+                    else:
+                        emplacement_suppr=i
+                    i+=1
             with open('readers.txt','w') as f_readers:
                 for i in range(len(liste_readers)):
                     f_readers.write(liste_readers[i])
@@ -177,6 +190,7 @@ def suppr_profil():
             with open('booksread.txt','w') as f_booksread:
                 for i in range(len(liste_booksread)):
                     f_booksread.write(liste_booksread[i])
+            modif_matrice_note('suppr_profil',emplacement_suppr)
             print(" ✔ profil supprimé\n")
 
 

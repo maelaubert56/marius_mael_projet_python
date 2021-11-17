@@ -74,8 +74,8 @@ def menu_recommandation():
         print("      ----- Recommandations -----")
         print("   1 - Noter un livre")
         print("   2 - Suggérer un livre")
-        print("   3 - Afficher matrice de notation")
-        print("   4 - Afficher matrice de similarité")
+        print("   3 - Afficher matrice de notation (!!! temporaire !!!)")
+        print("   4 - Afficher matrice de similarité (!!! temporaire !!!)")
         print("   5 - Retour")
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4, ou 5 : ")
         while choix not in {"1", "2", "3", "4", "5", "6"}:  ##Saisie sécurisée
@@ -84,21 +84,21 @@ def menu_recommandation():
 
         choix = int(choix)
         if choix == 1:
-            noter_livre()
+            noter_livre() ## permet de noter un livre
         elif choix == 2:
-            suggerer_livres()
+            suggerer_livres() ## permet de chercher un livre selon les notes et les livres lus
         elif choix == 3:
-            creer_matrice_notation()
+            afficher_notation() ## permet d'afficher la matrice de notation ( !!! temporaire !!!)
         elif choix == 4:
-            afficher_similarite()
+            afficher_similarite() ## permet d'afficher le profil le plus proche du sien (!!! temporaire !!!)
         elif choix == 5:
             continuer = False
 
 
 #############################
 # Corps du programme principal
-creer_matrice_notation()
 if __name__ == '__main__':
+    creer_matrice_notation()
     continuer = True
     while continuer:  ## boucle pour réafficher le menu principal en boucle jusqu'à la fermeture du programme
 
@@ -122,6 +122,5 @@ if __name__ == '__main__':
             menu_recommandation()  ## lance la fonction de recommandation d'un livre
         else:
             continuer = False  ## permet de quitter la boucle et fermer le programme
-
 
     print("      ------ Fin du programme ------")
