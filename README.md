@@ -20,12 +20,12 @@ Lancer le fichier ("nom du fichier") et suivre les instructions du programme.
         menu profils - OK
             ajout d'un lecteur - OK
             affichage d'un lecteur - OK
-            modification d'un lecteur OK
-            suppression d'un lecteur OK
-        menu dépôt des livres OK
-            ajout d'un livre OK
-            modification d'un livre OK
-            suppression d'un livre OK
-        menu recommandation
-            noter un livre
+            modification d'un lecteur - OK
+            suppression d'un lecteur - OK
+        menu dépôt des livres - OK
+            ajout d'un livre - OK
+            modification d'un livre - OK
+            suppression d'un livre - OK
+        menu recommandation - EN COURS
+            noter un livre - EN COURS
             suggestion de livres
