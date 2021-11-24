@@ -123,4 +123,5 @@ if __name__ == '__main__':
         else:
             continuer = False  ## permet de quitter la boucle et fermer le programme
 
+    afficher_notation()
     print("      ------ Fin du programme ------")

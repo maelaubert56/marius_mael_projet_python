@@ -8,16 +8,7 @@
 #   Auteurs: Maël Aubert, Marius Chevailler
 #----------------------------------------------------------------------------
 from recommandation import *
-
-
-def afficher_livres():
-    with open("books.txt","r") as f_books:
-        i=0
-        for ligne in f_books:
-            i+=1
-            print(i,"-",ligne,end="")
-    print("")
-    return i
+from fonctions_generales import *
 
 def ajout_livre() :
     # test du livre dans le fichier 'books.txt'

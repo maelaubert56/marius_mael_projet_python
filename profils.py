@@ -10,25 +10,8 @@
 
 from livres import *
 from recommandation import *
+from fonctions_generales import *
 
-def test_pseudo():
-    # on limite le pseudo à 20 caractère
-    pseudo = input("Entrez un pseudo de 20 caractères maximum : ")
-    while len(pseudo) not in range(1, 21):
-        pseudo = input("Ce pseudo n'est pas valable : ")
-
-    # on vérifie si le pseudo existe déjà
-    deja_present = False
-    with open("readers.txt", "r") as f:
-        for ligne in f:
-            if "\n" in ligne:  # permet de retirer les \n a chaque retour à la ligne
-                ligne = ligne[:-1]
-            readers_data = ligne.split(", ")
-            if pseudo == readers_data[0]:
-                deja_present = True
-                break
-
-    return pseudo, deja_present
 
 def questions_profil():
     # récolte des informations du profil
@@ -62,7 +45,7 @@ def questions_profil():
     val = ""
     livres_lus = []
     while val != 0:
-        val = input("- ")
+        val = input("-")
         try:
             val = int(val)
         except ValueError:
@@ -75,7 +58,6 @@ def questions_profil():
             elif val != 0:
                 livres_lus.append(str(val))
     return num_genre, num_age, num_style_lect, livres_lus
-
 
 
 def ajout_profil():
