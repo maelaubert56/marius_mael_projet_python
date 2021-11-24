@@ -19,11 +19,55 @@ def test_pseudo():
     return pseudo, deja_present
 
 
-def afficher_livres():
-    with open("books.txt","r") as f_books:
-        i=0
-        for ligne in f_books:
-            i+=1
-            print(i,"-",ligne,end="")
-    print("")
+def afficher_livres(all=True,pos_livres=[]):
+    print(all,pos_livres)
+    if all:
+        with open("books.txt","r") as f_books:
+            i=0
+            for ligne in f_books:
+                i+=1
+                print(i,"-",ligne,end="")
+        print("")
+        return i
+    else:
+        with open("books.txt","r") as f_books:
+            i=0
+            j=0
+            for ligne in f_books:
+                if i in pos_livres:
+                    j+=1
+                    print(j,"-",ligne,end="")
+                i += 1
+        print("")
+        return i
+
+
+def nombre_profils():
+    with open("readers.txt", "r") as f_readers:
+        i = 0
+        for ligne in f_readers:
+            i += 1
     return i
+
+def trouver_livres_lu(pos):
+    with open('booksread.txt','r') as f_booksread:
+        i=0
+        liste_lu=[]
+        for ligne in f_booksread:
+            if i==pos:
+                content=ligne[:-1].split(", ")
+
+                for j in range(1,len(content)):
+                    liste_lu.append(int(content[j]))
+            i+=1
+        return liste_lu
+
+def pos_pseudo(pseudo):
+    with open('readers.txt', 'r') as f_readers:
+        i = 0
+        pos=-1
+        for ligne in f_readers:
+            if ligne.split(", ")[0]==pseudo:
+                pos=i
+            i += 1
+        return pos

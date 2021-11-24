@@ -90,7 +90,8 @@ def ajout_profil():
         continuer = input("Voulez vous noter les livres que vous avez déja lu (!!! PROPOSER SEULEMENT SI LE LECTEUR A AJOUTE DES LIVRES ? o/n ")
         while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
             continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous notez les livres ? o/n ")
-        if continuer:
+
+
             ## MONTRER LIVRES
             ## RECUP NOTES
             ## AJOUTER NOTES A MATRICE
