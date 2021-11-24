@@ -7,6 +7,8 @@
 #
 #   Auteurs: Maël Aubert, Marius Chevailler
 #----------------------------------------------------------------------------
+from recommandation import *
+
 
 def afficher_livres():
     with open("books.txt","r") as f_books:
@@ -33,7 +35,7 @@ def ajout_livre() :
         # ajout du livre dans le fichier "books.txt"
         with open('books.txt', 'a') as f_books:
             f_books.write(nom_livre + "\n")
-
+        modif_matrice_note('ajout_profil')
         print(" ✔ livre ajouté\n")
 
 def modifier_livre() :
@@ -89,12 +91,17 @@ def supprimer_livre() :
 
                 with open('books.txt', 'r') as f_books: #les livres désirables sont contenus dans une nouvelle liste
                     liste_books = []
+                    i=0
                     for ligne in f_books:
                         if nom_livre != ligne[:-1]: # on exclut le \n présent sur chaque ligne du fichier dans la comparaison avec le titre du livre.
                             liste_books.append(ligne)
+                        else:
+                            emplacement_suppr = i
+                        i+=1
                 with open('books.txt', 'w') as f_books: # on réécrit le fichier sans le livre indésirable grace à la liste crées ulterieurement.
                     for i in range(len(liste_books)):
                         f_books.write(liste_books[i])
+                modif_matrice_note('suppr_livre', emplacement_suppr)
                 print(" ✔ livre supprimé\n")
 
 
@@ -115,5 +122,3 @@ def test_livre():
                 break
 
     return nom_livre, deja_present
-
-

@@ -2,11 +2,13 @@
 ## Système de recommandation de livres
 
 ## Utilisation :
-Lancer le fichier ("nom du fichier") et suivez les instructions du programme.
+Lancer le fichier ("nom du fichier") et suivre les instructions du programme.
 
-###Fichiers:
+### Fichiers:
 #### main.py
 #### profils.py
+#### livres.py
+#### recommandation.py
 #### books.txt
 #### readers.txt
 #### booksread.txt
@@ -18,12 +20,12 @@ Lancer le fichier ("nom du fichier") et suivez les instructions du programme.
         menu profils - OK
             ajout d'un lecteur - OK
             affichage d'un lecteur - OK
-            modification d'un lecteur 
-            suppression d'un lecteur EN COURS
+            modification d'un lecteur OK
+            suppression d'un lecteur OK
         menu dépôt des livres OK
             ajout d'un livre OK
-            modification d'un livre
-            suppression d'un livre
+            modification d'un livre OK
+            suppression d'un livre OK
         menu recommandation
             noter un livre
             suggestion de livres
