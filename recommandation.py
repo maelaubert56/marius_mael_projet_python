@@ -104,7 +104,6 @@ def afficher_similarite():
     print("afficher similarités")
 
 def suggerer_livres():
-    print("suggerer livre")
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
@@ -120,44 +119,49 @@ def suggerer_livres():
         pos_simi=trouver_lecteur_simi(pseudo)
         livres_lu=trouver_livres_lu(pos_pseudo(pseudo))
         livres_lu_simi=trouver_livres_lu(pos_simi)
-        livres_lu_diff=[]
 
+        livres_lu_diff=[]
         for val in livres_lu_simi:
             if val not in livres_lu:
                 livres_lu_diff.append(val)
-
-        afficher_livres(False,livres_lu_diff)
-
-        # ajout du livre dans la liste des livres lu
-        val = ""
-        while val != 0:
-            val = input("\n\nEntrez les numéros des livres déjà lus et faites entrer à chaque nouveau livre.\nLorsque vous avez fini ou si vous n'avez rien lu, écrivez '0' : ")
-            try:
-                val = int(val)
-            except ValueError:
-                print(
-                    "Erreur...\nVous devez entrez seulement des nombres correspondants aux livres affichés ci-dessus  : ")
-            else:
-                if val > nb_livres:
-                    print("Erreur...\nVous devez entrez seulement des nombres correspondants aux livres affichés ci-dessus  : ")
+        if len(livres_lu_diff)==0:
+            print("Nous ne pouvons pas vous recommander de livres car vous n'en avez pas en commun avec d'autres lecteurs...")
+        else:
+            livres_lu_diff.sort()
+            nb_livres=afficher_livres(False,livres_lu_diff)
+            # ajout du livre dans la liste des livres lu
+            val = ""
+            while val != 0:
+                val = input("\n\nEntrez le numéro le numéro d'un livre que vous voulez lire.\nSi vous ne voulez pas en lire, écrivez '0' : ")
+                try:
+                    val = int(val)
+                except ValueError:
+                    print("Erreur...\nVous devez entrez seulement un nombre correspondants aux livres affichés ci-dessus  : ")
                 else:
+                    if val > nb_livres:
+                        print("Erreur...\nVous devez entrez seulement un nombre correspondants aux livres affichés ci-dessus  : ")
+                    elif val!=0:
+                        with open('booksread.txt', 'a') as f_booksread:
+                            livres_lu.append(livres_lu_diff[val-1]+1)
+                            modifier_livres_lus(pseudo,livres_lu)
+                        print(" ✔ liste des livres lu mise à jour\n")
+                        val=0
 
-        with open('booksread.txt', 'a') as f_booksread:
-            f_booksread.write(pseudo+", " + ", ".join(livres_lu)+", "+ val + "\n")
-        print(" ✔ liste des livres lu mise à jour\n")
+
 
 def creer_matrice_simi():
-
+    """TEMPORAIRE"""
     global matrice_note
     matrice_note=[]
-    for i in range(5):
+    for i in range(nombre_profils()):
         L=[]
         for j in range(19):
             L.append(randint(0,6))
         matrice_note.append(L)
+    """TEMPORAIRE"""
+
     global matrice_simi
     matrice_simi=[]
-
     for i in range(nombre_profils()):
         L=[]
         for j in range(nombre_profils()):

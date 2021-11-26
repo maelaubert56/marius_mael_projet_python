@@ -20,7 +20,6 @@ def test_pseudo():
 
 
 def afficher_livres(all=True,pos_livres=[]):
-    print(all,pos_livres)
     if all:
         with open("books.txt","r") as f_books:
             i=0
@@ -28,7 +27,7 @@ def afficher_livres(all=True,pos_livres=[]):
                 i+=1
                 print(i,"-",ligne,end="")
         print("")
-        return i
+        nblivres = i
     else:
         with open("books.txt","r") as f_books:
             i=0
@@ -39,7 +38,9 @@ def afficher_livres(all=True,pos_livres=[]):
                     print(j,"-",ligne,end="")
                 i += 1
         print("")
-        return i
+        nblivres = j
+
+    return nblivres
 
 
 def nombre_profils():
@@ -71,3 +72,16 @@ def pos_pseudo(pseudo):
                 pos=i
             i += 1
         return pos
+
+
+def modifier_livres_lus(pseudo,new_liste_booksread):
+    with open('booksread.txt', 'r') as f_booksread:  # les livres lus sont contenus dans une nouvelle liste
+        liste_booksread = []
+        for ligne in f_booksread:
+            liste_booksread.append(ligne[:-1])
+    with open('booksread.txt','w') as f_booksread:
+        for i in range(len(liste_booksread)):  # on modifie le profil souhaité grace à la liste
+            if liste_booksread[i].split(", ")[0] == pseudo:
+                liste_booksread[i] = pseudo +", "+ ", ".join([str(k) for k in new_liste_booksread])
+            liste_booksread[i] = liste_booksread[i] + '\n'  # on rajoute le retour à la ligne à chaque titre
+            f_booksread.write(liste_booksread[i])  # on réécrit le fichier grace à la liste crée ulterieurement

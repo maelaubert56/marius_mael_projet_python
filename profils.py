@@ -40,8 +40,7 @@ def questions_profil():
     nb_livres = afficher_livres()
 
     # choix des livres lus
-    print(
-        "\n\nEntrez les numéros des livres déjà lus et faites entrer à chaque nouveau livre.\nLorsque vous avez fini ou si vous n'avez rien lu, écrivez '0' : ")
+    print("\n\nEntrez les numéros des livres déjà lus et faites entrer à chaque nouveau livre.\nLorsque vous avez fini ou si vous n'avez rien lu, écrivez '0' : ")
     val = ""
     livres_lus = []
     while val != 0:
@@ -78,7 +77,7 @@ def ajout_profil():
         # ajout des infos dans le fichier "readers.txt"
         with open('readers.txt', 'a') as f_readers:
             f_readers.write(pseudo + ", " + num_genre + ", " + num_age + ", " + num_style_lect + "\n")
-        print(" ✔ profil ajouté\n")
+        print(" ✔ profil ajouté")
 
         with open('booksread.txt', 'a') as f_booksread:
             f_booksread.write(pseudo+", " + ", ".join(livres_lu) + "\n")
@@ -136,8 +135,8 @@ def modifier_profil() :
             with open('booksread.txt','w') as f_booksread:
                 for i in range(len(liste_profils)): # on modifie les livres lu souhaité grace à la liste
                     if pseudo in liste_livres_lu[i]:
-                        liste_livres_lu[i]= f_booksread.write(pseudo + ", " + ", ".join(livres_lu)+"\n")
-                    ##liste_profils[i]=liste_profils[i]+'\n' # on rajoute le retour à la ligne à chaque titre
+                        liste_livres_lu[i]= f_booksread.write(pseudo + ", " + ", ".join(livres_lu))
+                    liste_profils[i]=liste_profils[i]+'\n' # on rajoute le retour à la ligne à chaque titre
                     f_booksread.write(liste_livres_lu[i]) # on réécrit le fichier grace à la liste créé précédement
 
             print(" ✔ profil modifié\n")
