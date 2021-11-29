@@ -1,4 +1,4 @@
-#!/usr/bin/env python3  Line 1
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #----------------------------------------------------------------------------
 #   main.py
@@ -43,8 +43,8 @@ def menu_livres():
 
         ## menu des profils
         print("      ----- Gestion des livres -----")
-        print("   1 - Ajouter un livre")
-        print("   2 - Voir la liste des livres")
+        print("   1 - Voir la liste des livres")
+        print("   2 - Ajouter un livre")
         print("   3 - Modifier un livre")
         print("   4 - Supprimer un livre")
         print("   5 - Retour")
@@ -55,9 +55,9 @@ def menu_livres():
 
         choix = int(choix)
         if choix == 1:
-            ajout_livre()
+            ajouter_booksread()
         elif choix == 2:
-            afficher_livres()
+            ajout_livre()
         elif choix == 3:
             modifier_livre()
         elif choix == 4:

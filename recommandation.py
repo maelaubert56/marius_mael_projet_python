@@ -1,7 +1,18 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#----------------------------------------------------------------------------
+#   recommandation.py
+#   ==> comporte les fonctions nécessaires à la notation et aux recommandations
+#   ==> détails dans le README
+#
+#   Auteurs: Maël Aubert, Marius Chevailler
+#----------------------------------------------------------------------------
+
 from livres import *
 from fonctions_generales import *
 from math import *
 from random import randint
+
 """FONCTIONS DE NOTATION"""
 def ajouter_note(pseudo, num_livre, note):
     #recuperer la position du pseudo
@@ -30,15 +41,21 @@ def noter_livre():
 
     if deja_present:
 
-        afficher_livres()
+        var_pos_pseudo=pos_pseudo(pseudo)
+        liste_lu=trouver_livres_lu(var_pos_pseudo)
+        nb_livres=afficher_livres(False,liste_lu)
         # affichage des livres disponibles et récupération du nombre de livres
-        nb_livres = afficher_livres()
 
         # choix des livres lus
         num_livre=input("\n\nEntrez le numéros du livre que vous voulez noter : ")
+        while continuer:
+            if num_livre.isnumeric()==False or int(num_livre) not in range(1,nb_livres+1):
+                num_livre = input("Erreur... Vous devez entrez seulement un nombre entier correspondant à un livre affiché ci-dessus  : ")
+            else:
+                continuer=False
 
-        while num_livre.isnumeric()==False or int(num_livre) not in range(1,nb_livres+1):
-            num_livre = input("Erreur... Vous devez entrez seulement un nombre entier correspondant à un livre affiché ci-dessus  : ")
+
+
         num_livre = int(num_livre)
 
         #choix de la note
@@ -46,8 +63,11 @@ def noter_livre():
         while note.isnumeric()==False or int(note) not in range(1,6):
             note = input("Erreur... Votre note doit être un entier comprise entre 1 et 5 :")
         note = int(note)
+        print("num livre:",num_livre)
+        print("liste_lu:",liste_lu)
 
-        ajouter_note(pseudo, num_livre, note)
+        print(liste_lu[num_livre-1]+1, note)
+        ajouter_note(pseudo, liste_lu[num_livre-1]+1, note)
 
 
 def afficher_notation():
@@ -99,6 +119,7 @@ def modif_matrice_note(choix, element=''):
             M.append(L)
         matrice_note=M
 
+
 """FONCTIONS DE SIMILARITE"""
 def afficher_similarite():
     print("afficher similarités")
@@ -117,6 +138,7 @@ def suggerer_livres():
     if deja_present:
         creer_matrice_simi()
         pos_simi=trouver_lecteur_simi(pseudo)
+        print(pos_simi)
         livres_lu=trouver_livres_lu(pos_pseudo(pseudo))
         livres_lu_simi=trouver_livres_lu(pos_simi)
 
@@ -147,6 +169,8 @@ def suggerer_livres():
                         print(" ✔ liste des livres lu mise à jour\n")
                         val=0
 
+                        """PROPOSER DE NOTER LE LIVRE"""
+
 
 
 def creer_matrice_simi():
@@ -156,7 +180,7 @@ def creer_matrice_simi():
     for i in range(nombre_profils()):
         L=[]
         for j in range(19):
-            L.append(randint(0,6))
+            L.append(randint(0,5))
         matrice_note.append(L)
     """TEMPORAIRE"""
 

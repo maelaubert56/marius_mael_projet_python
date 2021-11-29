@@ -23,9 +23,19 @@ Lancer le fichier ("nom du fichier") et suivre les instructions du programme.
             modification d'un lecteur - OK
             suppression d'un lecteur - OK
         menu dépôt des livres - OK
+            afficher les livres (ajouter livre lu)- OK
             ajout d'un livre - OK
             modification d'un livre - OK
             suppression d'un livre - OK
         menu recommandation - EN COURS
-            noter un livre - EN COURS
-            suggestion de livres
+            noter un livre - OK
+            suggestion de livres - EN COURS
+
+
+### A FAIRE
+- proposer de noter un livre (suggestion)
+- décaler/supprimer nums booksread quand un livre est supprimé ligne:100 fichier:livre.py
+- regler probleme notes mal placées
+
+- changer les noms des fonctions par des noms plus logiques (test_livres devient presence_livre)
+- probleme : apres suggestion des livres, tous les livres de booksread sont reduits de -1 (19 ==>18)
