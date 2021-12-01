@@ -1,4 +1,4 @@
-#!/usr/bin/env python3  Line 1
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #----------------------------------------------------------------------------
 #   profils.py
@@ -11,7 +11,6 @@
 from livres import *
 from recommandation import *
 from fonctions_generales import *
-
 
 def questions_profil():
     # récolte des informations du profil
@@ -36,29 +35,9 @@ def questions_profil():
                 break
         num_style_lect = (input("    Entrez un nombre de 1 à 7 : "))
 
-    # affichage des livres disponibles et récupération du nombre de livres
-    nb_livres = afficher_livres()
+    livres_lus = ajouter_booksread()  #Affiche les livres et demande d'entrer les livres lus
 
-    # choix des livres lus
-    print(
-        "\n\nEntrez les numéros des livres déjà lus et faites entrer à chaque nouveau livre.\nLorsque vous avez fini ou si vous n'avez rien lu, écrivez '0' : ")
-    val = ""
-    livres_lus = []
-    while val != 0:
-        val = input("-")
-        try:
-            val = int(val)
-        except ValueError:
-            print("Erreur...\nVous devez entrez seulement des nombres correspondants aux livres affichés ci-dessus  : ")
-        else:
-            if val > nb_livres:
-                print("Erreur...\nVous devez entrez seulement des nombres correspondants aux livres affichés ci-dessus  : ")
-            elif val in livres_lus :
-                print("Erreur...\n Vous avez déja entré ce numéro : ")
-            elif val != 0:
-                livres_lus.append(str(val))
     return num_genre, num_age, num_style_lect, livres_lus
-
 
 def ajout_profil():
     # test du pseudo dans le fichier 'readers.txt'
@@ -78,28 +57,27 @@ def ajout_profil():
         # ajout des infos dans le fichier "readers.txt"
         with open('readers.txt', 'a') as f_readers:
             f_readers.write(pseudo + ", " + num_genre + ", " + num_age + ", " + num_style_lect + "\n")
-        print(" ✔ profil ajouté\n")
-
-        with open('booksread.txt', 'a') as f_booksread:
-            f_booksread.write(pseudo+", " + ", ".join(livres_lu) + "\n")
-        print(" ✔ liste des livres lu mise à jour\n")
-
-        ## proposition de noter les livres lus
         modif_matrice_note('ajout_profil')
+        print(" ✔ profil ajouté")
 
-        continuer = input("Voulez vous noter les livres que vous avez déja lu (!!! PROPOSER SEULEMENT SI LE LECTEUR A AJOUTE DES LIVRES ? o/n ")
-        while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
-            continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous notez les livres ? o/n ")
+        with open('booksread.txt', 'a') as f_booksread: # ajout des livres lus (si aucun livre lu, seul le pseudo apparaitra)
+            f_booksread.write(pseudo+", " + ", ".join(livres_lu) + "\n")
 
+        if len(livres_lu)!=0: ## si des livres ont été ajoutés : proposition de noter les livres lus
+            print(" ✔ liste des livres lu mise à jour\n")
 
-            ## MONTRER LIVRES
-            ## RECUP NOTES
-            ## AJOUTER NOTES A MATRICE
+            continuer = input("Voulez vous noter les livres que vous avez déja lu (!!! PROPOSER SEULEMENT SI LE LECTEUR A AJOUTE DES LIVRES ? o/n ")
+            while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
+                continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous notez les livres ? o/n ")
+                ## MONTRER LIVRES
+                ## RECUP NOTES
+                ## AJOUTER NOTES A MATRICE
         
         
 
 
 def modifier_profil() :
+    # On récupère le pseudo du profil à modifier
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
@@ -110,12 +88,12 @@ def modifier_profil() :
             while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
                 continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous saisir un autre pseudo ? o/n ")
 
-    if deja_present:
+    if deja_present: # on demande une confirmation
         continuer = input("Vous allez modifier le profil '" + pseudo + "'. Continuer ? o/n ")
         while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
             continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous continuer ? o/n ")
         if continuer in {'oui', 'Oui', 'O', 'o'}:
-            num_genre, num_age, num_style_lect, livres_lu = questions_profil()
+            num_genre, num_age, num_style_lect, livres_lu = questions_profil() # On recupere les nouvelles infos du profil
             with open('readers.txt', 'r') as f_profils:  # les profils sont contenus dans une nouvelle liste
                 liste_profils = []
                 for ligne in f_profils:
@@ -128,18 +106,16 @@ def modifier_profil() :
                     liste_profils[i]=liste_profils[i]+'\n' # on rajoute le retour à la ligne à chaque titre
                     f_profils.write(liste_profils[i]) # on réécrit le fichier grace à la liste créé précédement
 
-
-            with open('booksread.txt', 'r') as f_booksread:  # les livres lu sont contenus dans une nouvelle liste
+            with open('booksread.txt', 'r') as f_booksread:  # les lignes de booksread.txt sont contenus dans une liste
                 liste_livres_lu = []
                 for ligne in f_booksread:
                         liste_livres_lu.append(ligne[:-1])
             with open('booksread.txt','w') as f_booksread:
-                for i in range(len(liste_profils)): # on modifie les livres lu souhaité grace à la liste
-                    if pseudo in liste_livres_lu[i]:
-                        liste_livres_lu[i]= f_booksread.write(pseudo + ", " + ", ".join(livres_lu)+"\n")
-                    ##liste_profils[i]=liste_profils[i]+'\n' # on rajoute le retour à la ligne à chaque titre
-                    f_booksread.write(liste_livres_lu[i]) # on réécrit le fichier grace à la liste créé précédement
-
+                for i in range(len(liste_livres_lu)):
+                    if pseudo==liste_livres_lu[i].split(", ")[0]: # si on est à la ligne correspondant au pseudo: on la remplace par les nouveaux livres lu
+                        liste_livres_lu[i]= pseudo + ", " + ", ".join(livres_lu)
+                    liste_livres_lu[i]=liste_livres_lu[i]+'\n' # on rajoute le retour à la ligne à chaque titre
+                    f_booksread.write(liste_livres_lu[i]) #on ajoute la ligne au fichier booksread.txt
             print(" ✔ profil modifié\n")
 
 
