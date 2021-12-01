@@ -1,22 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 #   main.py
 #   ==> programme de recommandation de livres avec gestion des livres et des profils
 #   ==> détails dans le README
 #
 #   Auteurs: Maël Aubert, Marius Chevailler
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 
 # Importation des fonctions externes
 from profils import *
 from livres import *
 from recommandation import *
 
+
 # Fonctions des menus
 def menu_profils():
     continuer = True
-    while continuer: # boucle pour réafficher le menu des profils jusqu'à la fermeture du programme
+    while continuer:  # boucle pour réafficher le menu des profils jusqu'à la fermeture du programme
 
         ## menu des profils
         print("      ----- Gestion des profils -----")
@@ -27,15 +28,21 @@ def menu_profils():
         print("   5 - Retour")
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4, ou 5 : ")
         while choix not in {"1", "2", "3", "4", "5", "6"}:  ##Saisie sécurisée
-            choix = input("Erreur... "+ choix +" n'est pas compris dans 1, 2, 3, 4, 5 ou 6 : ")
+            choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4, 5 ou 6 : ")
         print("")
 
         choix = int(choix)
-        if choix == 1: ajout_profil()
-        elif choix == 2: voir_profil()
-        elif choix == 3: modifier_profil() #todo modification d'un profil
-        elif choix == 4: suppr_profil()
-        elif choix == 5: continuer = False
+        if choix == 1:
+            ajout_profil()
+        elif choix == 2:
+            voir_profil()
+        elif choix == 3:
+            modifier_profil()  # todo modification d'un profil
+        elif choix == 4:
+            suppr_profil()
+        elif choix == 5:
+            continuer = False
+
 
 def menu_livres():
     continuer = True
@@ -84,13 +91,13 @@ def menu_recommandation():
 
         choix = int(choix)
         if choix == 1:
-            noter_livre() ## permet de noter un livre
+            noter_livre()  ## permet de noter un livre
         elif choix == 2:
-            suggerer_livres() ## permet de chercher un livre selon les notes et les livres lus
+            suggerer_livres()  ## permet de chercher un livre selon les notes et les livres lus
         elif choix == 3:
-            afficher_notation() ## permet d'afficher la matrice de notation ( !!! temporaire !!!)
+            afficher_notation()  ## permet d'afficher la matrice de notation ( !!! temporaire !!!)
         elif choix == 4:
-            afficher_similarite() ## permet d'afficher le profil le plus proche du sien (!!! temporaire !!!)
+            afficher_similarite()  ## permet d'afficher le profil le plus proche du sien (!!! temporaire !!!)
         elif choix == 5:
             continuer = False
 
