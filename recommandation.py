@@ -43,6 +43,7 @@ def noter_livre():
 
         var_pos_pseudo=pos_pseudo(pseudo)
         liste_lu=trouver_livres_lu(var_pos_pseudo)
+        liste_lu.sort()
         nb_livres=afficher_livres(False,liste_lu)
         # affichage des livres disponibles et récupération du nombre de livres
 
@@ -67,6 +68,7 @@ def noter_livre():
         print("liste_lu:",liste_lu)
 
         print(liste_lu[num_livre-1]+1, note)
+
         ajouter_note(pseudo, liste_lu[num_livre-1]+1, note)
 
 
@@ -147,9 +149,8 @@ def suggerer_livres():
             if val not in livres_lu:
                 livres_lu_diff.append(val)
         if len(livres_lu_diff)==0:
-            print("Nous ne pouvons pas vous recommander de livres car vous n'en avez pas en commun avec d'autres lecteurs...")
+            print("Nous ne pouvons pas vous recommander de nouveau livres car vous avez lu les mêmes livres...")
         else:
-            livres_lu_diff.sort()
             nb_livres=afficher_livres(False,livres_lu_diff)
             # ajout du livre dans la liste des livres lu
             val = ""
@@ -163,9 +164,8 @@ def suggerer_livres():
                     if val > nb_livres:
                         print("Erreur...\nVous devez entrez seulement un nombre correspondants aux livres affichés ci-dessus  : ")
                     elif val!=0:
-                        with open('booksread.txt', 'a') as f_booksread:
-                            livres_lu.append(livres_lu_diff[val-1]+1)
-                            modifier_livres_lus(pseudo,livres_lu)
+                        livres_lu.append(livres_lu_diff[val-1])
+                        modifier_livres_lus(pseudo,livres_lu)
                         print(" ✔ liste des livres lu mise à jour\n")
                         val=0
 
