@@ -31,45 +31,51 @@ def ajouter_note(pseudo, num_livre, note):
     matrice_note[pos_pseudo][num_livre - 1] = note
 
 
-def noter_livre():
-    continuer = 'o'
-    deja_present = False
-    while continuer in {'oui', 'Oui', 'O', 'o'}:
-        pseudo, deja_present = test_pseudo()
-        continuer = 'n'
-        if deja_present == False:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
-            continuer = input("Ce profil n'existe pas, voulez vous saisir un autre pseudo ? o/n ")
-            while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
-                continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous saisir un autre pseudo ? o/n ")
+def noter_livre(deja_present=False,pseudo="",liste_lu=[]):
+    if deja_present==False:
+        continuer = 'o'
+        deja_present = False
+        while continuer in {'oui', 'Oui', 'O', 'o'}:
+            pseudo, deja_present = test_pseudo()
+            continuer = 'n'
+            if deja_present == False:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
+                continuer = input("Ce profil n'existe pas, voulez vous saisir un autre pseudo ? o/n ")
+                while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
+                    continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous saisir un autre pseudo ? o/n ")
 
     if deja_present:
+        print(liste_lu)
+        if len(liste_lu)!=0:
+            num_livre = 1
 
-        var_pos_pseudo = pos_pseudo(pseudo)
-        liste_lu = trouver_livres_lu(var_pos_pseudo)
-        liste_lu.sort()
-        nb_livres = afficher_livres(False, liste_lu)
-        # affichage des livres disponibles et récupération du nombre de livres
+        else:
+            var_pos_pseudo = pos_pseudo(pseudo)
+            liste_lu = trouver_livres_lu(var_pos_pseudo)
+            liste_lu.sort()
 
-        # choix des livres lus
-        num_livre = input("\n\nEntrez le numéros du livre que vous voulez noter : ")
-        while continuer:
-            if num_livre.isnumeric() == False or int(num_livre) not in range(1, nb_livres + 1):
-                num_livre = input(
-                    "Erreur... Vous devez entrez seulement un nombre entier correspondant à un livre affiché ci-dessus  : ")
-            else:
-                continuer = False
-
-        num_livre = int(num_livre)
+            nb_livres = afficher_livres(False, liste_lu) # affichage des livres disponibles et récupération du nombre de livres
+            if nb_livres == 1: # Si le lecteur n'a lu qu'un seul livre, on continue
+                num_livre=1
+            else:# sinon, choix des livres lus
+                continuer = True
+                num_livre = input("\n\nEntrez le numéros du livre que vous voulez noter : ")
+                while continuer:
+                    if num_livre.isnumeric() == False or int(num_livre) not in range(1, nb_livres + 1):
+                        num_livre = input("Erreur... Vous devez entrez seulement un nombre entier correspondant à un livre affiché ci-dessus  : ")
+                    else:
+                        continuer = False
+                num_livre = int(num_livre)
 
         # choix de la note
         note = input("Entrez une note pour ce livre (entre 1 et 5) : ")
         while note.isnumeric() == False or int(note) not in range(1, 6):
             note = input("Erreur... Votre note doit être un entier comprise entre 1 et 5 :")
         note = int(note)
+        print("\n#### à suppr dans la version finale ####")
         print("num livre:", num_livre)
         print("liste_lu:", liste_lu)
-
         print(liste_lu[num_livre - 1] + 1, note)
+        print("#### à suppr dans la version finale ####\n")
 
         ajouter_note(pseudo, liste_lu[num_livre - 1] + 1, note)
 
@@ -177,14 +183,15 @@ def suggerer_livres():
                         modifier_livres_lus(pseudo, livres_lu)
                         print(" ✔ liste des livres lu mise à jour\n")
                         val = 0
-                        """PROPOSER DE NOTER LE LIVRE"""
                         continuer = input("Voulez-vous noter ce livre ? o/n ")
                         while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
                             continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez-vous noter ce livre ? o/n ")
                         if continuer in {'oui', 'Oui', 'O', 'o'}:
-                            print("bonjour")  # noter livre mais sans redemander pseudo et  numero livre
+                            noter_livre(True,pseudo,[livres_lu[-1]])
+                            print(" ✔ Note ajoutée\n")
                         if continuer in {'non', 'Non', 'N', 'n'}:
                             print("Vous pourrez noter ce livre à tout moment dans le menu adéquat")
+
 
 
 def creer_matrice_simi():

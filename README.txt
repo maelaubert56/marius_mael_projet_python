@@ -33,7 +33,5 @@ Lancer le fichier ("nom du fichier") et suivre les instructions du programme.
 
 
 ### A FAIRE
-- proposer de noter un livre (suggestion) recommendation a partir de la ligne 181
-- fonction ajout_profil à terminer ! ligne 72.73.74 profils.py
 - décaler/supprimer nums booksread quand un livre est supprimé ligne:100 fichier:livre.py
 - changer les noms des fonctions par des noms plus logiques (test_livres devient presence_livre)

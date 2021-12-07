@@ -28,8 +28,7 @@ def test_pseudo():  # vérifie si un pseudo existe dans readers.txt
     return pseudo, deja_present  # retourne pseudo(str) et deja_present(booléen)
 
 
-def afficher_livres(all=True,
-                    pos_livres=[]):  # permet d'afficher les livres presents dans books.txt (soit tout, soit une liste définie)
+def afficher_livres(all=True,pos_livres=[]):  # permet d'afficher les livres presents dans books.txt (soit tout, soit une liste définie)
     if all:  # on affiche tous les livres avec un numéro devant pour une sélection
         with open("books.txt", "r") as f_books:
             i = 0
