@@ -44,7 +44,6 @@ def noter_livre(deja_present=False,pseudo="",liste_lu=[]):
                     continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous saisir un autre pseudo ? o/n ")
 
     if deja_present:
-        print(liste_lu)
         if len(liste_lu)!=0:
             num_livre = 1
 
@@ -152,10 +151,8 @@ def suggerer_livres():
     if deja_present:
         creer_matrice_simi()
         pos_simi = trouver_lecteur_simi(pseudo)
-        print(pos_simi)
         livres_lu = trouver_livres_lu(pos_pseudo(pseudo))
         livres_lu_simi = trouver_livres_lu(pos_simi)
-
         livres_lu_diff = []
         for val in livres_lu_simi:
             if val not in livres_lu:

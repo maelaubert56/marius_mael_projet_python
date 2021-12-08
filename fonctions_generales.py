@@ -8,6 +8,25 @@
 #   Auteurs: Maël Aubert, Marius Chevailler
 # ----------------------------------------------------------------------------
 
+def debug_fichiers():# permet de reformater les fichiers 'txt' afin qu'ils soient lisible par le prgramme sans bug
+    with open('booksread.txt','r') as f_booksread:
+        tab_livres_lu=[]
+        for ligne in f_booksread:
+            liste_livres_lu=[]
+            ligne=ligne[:-1].split(", ")
+            liste_livres_lu.append(ligne[0])
+            nblignes=nombreDeLignes("books.txt")
+            for i in range(1,len(ligne)):
+                ligne[i]=int(ligne[i])
+                if ligne[i] in range(1,nblignes+1) and (str(ligne[i]) not in liste_livres_lu): # on ajoute la valeur seulement si la valeur est >0 et qu'elle n'est pas déja présente
+                    liste_livres_lu.append(str(ligne[i]))
+            tab_livres_lu.append(liste_livres_lu)
+
+    with open('booksread.txt','w') as f_booksread: # On réécrit le fichier avec les bonnes valeurs
+        for i in range(len(tab_livres_lu)):
+            f_booksread.write(", ".join(tab_livres_lu[i])+"\n")
+
+
 
 def test_pseudo():  # vérifie si un pseudo existe dans readers.txt
     # on limite le pseudo à 20 caractère
@@ -26,6 +45,15 @@ def test_pseudo():  # vérifie si un pseudo existe dans readers.txt
                 break
 
     return pseudo, deja_present  # retourne pseudo(str) et deja_present(booléen)
+
+
+def nombreDeLignes(fichier):
+    with open(fichier, "r") as f:
+        i = 0
+        for ligne in f:
+            i += 1
+    print("nbligne:",i)
+    return i
 
 
 def afficher_livres(all=True,pos_livres=[]):  # permet d'afficher les livres presents dans books.txt (soit tout, soit une liste définie)
@@ -54,8 +82,7 @@ def afficher_livres(all=True,pos_livres=[]):  # permet d'afficher les livres pre
 
 def ajouter_booksread(livres_lus=[]):  # permet d'ajouter des livres lus à la liste de livres lu
     nb_livres = afficher_livres()  # affichage des livres disponibles et récupération du nombre de livres
-    print(
-        "\n\nEntrez les numéros des livres déjà lus et faites entrer à chaque nouveau livre.\nLorsque vous avez fini ou si vous n'avez rien lu, écrivez '0' : ")
+    print("\n\nEntrez les numéros des livres déjà lus et faites entrer à chaque nouveau livre.\nLorsque vous avez fini ou si vous n'avez rien lu, écrivez '0' : ")
     val = ''
     while val != 0:
         val = input("-")
@@ -64,7 +91,7 @@ def ajouter_booksread(livres_lus=[]):  # permet d'ajouter des livres lus à la l
         except ValueError:
             print("Erreur...\nVous devez entrez seulement des nombres correspondants aux livres affichés ci-dessus  : ")
         else:
-            if val > nb_livres:
+            if val not in range(nb_livres+1):
                 print(
                     "Erreur...\nVous devez entrez seulement des nombres correspondants aux livres affichés ci-dessus  : ")
             elif val in livres_lus:
