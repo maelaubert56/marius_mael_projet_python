@@ -62,8 +62,7 @@ def ajout_profil():
         modif_matrice_note('ajout_profil')
         print(" ✔ profil ajouté")
 
-        with open('booksread.txt',
-                  'a') as f_booksread:  # ajout des livres lus (si aucun livre lu, seul le pseudo apparaitra)
+        with open('booksread.txt','a') as f_booksread:  # ajout des livres lus (si aucun livre lu, seul le pseudo apparaitra)
             f_booksread.write(pseudo + ", " + ", ".join(livres_lu) + "\n")
 
         if len(livres_lu) != 0:  ## si des livres ont été ajoutés : proposition de noter les livres lus

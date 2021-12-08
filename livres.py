@@ -94,14 +94,33 @@ def supprimer_livre():  # permet de supprimer un livre dans books.txt et booksre
                     if nom_livre != ligne[:-1]:  # On ajoute les livres a une liste (sauf le livre à supprimer)
                         liste_books.append(ligne)
                     else:
-                        emplacement_suppr = i  # On récupère l'emplacement de suppression pour supprier son apparition dans d'autres fichiers
+                        emplacement_suppr = i+1  # On récupère l'emplacement de suppression pour supprimer son apparition dans d'autres fichiers
                     i += 1
             with open('books.txt', 'w') as f_books:  # on réécrit le fichier sans le livre à supprimer
                 for i in range(len(liste_books)):
                     f_books.write(liste_books[i])
-            modif_matrice_note('suppr_livre',
-                               emplacement_suppr)  # on retire la colonne correspondant au livre supprimé dans la matrice de notation
-            #### TODO: FONCTION POUR DECALER TOUS LES CHIFFRES SUPRERIEURS A CE LIVRE DANS booksread.txt  ####
+            modif_matrice_note('suppr_livre',emplacement_suppr)  # on retire la colonne correspondant au livre supprimé dans la matrice de notation
+
+            # on supprime les apparition du livre supprimé dans booksread, et on décale les positions suivantes
+            with open("booksread.txt","r") as f_booksread:
+                newliste=[]
+                for ligne in f_booksread:
+                    newligne=ligne[:-1].split(", ")
+                    i=1
+                    while i in range(1,len(newligne)):
+                        newligne[i] = int(newligne[i])
+                        if newligne[i]==emplacement_suppr:
+                            del newligne[i]
+                            i-=1
+                        elif newligne[i]>emplacement_suppr:
+                            newligne[i]=newligne[i]-1
+                        i+=1
+                    newliste.append(newligne)
+
+            with open('booksread.txt','w') as f_booksread:  # ajout des livres lus (si aucun livre lu, seul le pseudo apparaitra)
+                for i in range(len(newliste)):
+                    f_booksread.write(", ".join(list(map(str,newliste[i]))) + "\n")
+
             print(" ✔ livre supprimé\n")
 
 
