@@ -63,7 +63,7 @@ def menu_livres():
 
         choix = int(choix)
         if choix == 1:
-            ajouter_booksread()
+            afficher_livres()
         elif choix == 2:
             lire_livre()
         elif choix == 3:

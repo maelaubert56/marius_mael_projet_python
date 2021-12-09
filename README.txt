@@ -36,7 +36,5 @@ Lancer le fichier ("nom du fichier") et suivre les instructions du programme.
 - changer les noms des fonctions par des noms plus logiques (test_livres devient presence_livre)
 
 Bugs a fixer:
-- "afficher les livres" demande d'ajouter un les livres lu apres les avoir affiché
 empecher d'ajouter des espaces dans un pseudo
 
-Ajouter la fonction ("lire_livre")

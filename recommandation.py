@@ -16,19 +16,9 @@ from random import randint
 """FONCTIONS DE NOTATION"""
 
 
-def ajouter_note(pseudo, num_livre, note):
-    # recuperer la position du pseudo
-    with open("readers.txt", "r") as f:
-        pos_pseudo = 0
-        for ligne in f:
-            if "\n" in ligne:  # permet de retirer les \n a chaque retour à la ligne
-                ligne = ligne[:-1]
-            if pseudo == ligne.split(", ")[0]:
-                break
-            pos_pseudo += 1
-    # ecrire note en pos_pseudo,num_livre-1
+def ajouter_note(pseudo, num_livre, note): # ecrire note en pos_pseudo,num_livre-1
     global matrice_note
-    matrice_note[pos_pseudo][num_livre - 1] = note
+    matrice_note[pos_pseudo(pseudo)][num_livre - 1] = note
 
 
 def noter_livre(deja_present=False,pseudo="",liste_lu=[]):
@@ -48,11 +38,10 @@ def noter_livre(deja_present=False,pseudo="",liste_lu=[]):
             num_livre = 1
 
         else:
-            var_pos_pseudo = pos_pseudo(pseudo)
-            liste_lu = trouver_livres_lu(var_pos_pseudo)
+            liste_lu = trouver_livres_lu(pos_pseudo(pseudo))
             liste_lu.sort()
-
-            nb_livres = afficher_livres(False, liste_lu) # affichage des livres disponibles et récupération du nombre de livres
+            nb_livres=len(liste_lu)
+            afficher_livres(False, liste_lu) # affichage des livres disponibles et récupération du nombre de livres
             if nb_livres == 1: # Si le lecteur n'a lu qu'un seul livre, on continue
                 num_livre=1
             else:# sinon, choix des livres lus
@@ -73,10 +62,11 @@ def noter_livre(deja_present=False,pseudo="",liste_lu=[]):
         print("\n#### à suppr dans la version finale ####")
         print("num livre:", num_livre)
         print("liste_lu:", liste_lu)
+
         print(liste_lu[num_livre - 1] + 1, note)
         print("#### à suppr dans la version finale ####\n")
 
-        ajouter_note(pseudo, liste_lu[num_livre - 1] + 1, note)
+        ajouter_note(pseudo, liste_lu[num_livre - 1], note)
 
 
 def afficher_notation():
@@ -157,10 +147,12 @@ def suggerer_livres():
         for val in livres_lu_simi:
             if val not in livres_lu:
                 livres_lu_diff.append(val)
+        livres_lu_diff.sort()
         if len(livres_lu_diff) == 0:
-            print("Nous ne pouvons pas vous recommander de nouveau livres car vous avez lu les mêmes livres...")
+            print("Nous ne pouvons pas vous recommander de nouveau livres car vous avez lu les mêmes livres que la personne qui à les mêmes gouts que vous...")
         else:
-            nb_livres = afficher_livres(False, livres_lu_diff)
+            afficher_livres(False, livres_lu_diff)
+            nb_livres=len(livres_lu_diff)
             # ajout du livre dans la liste des livres lu
             val = ""
             while val != 0:
@@ -178,6 +170,7 @@ def suggerer_livres():
                     elif val != 0:
                         livres_lu.append(livres_lu_diff[val - 1])
                         modifier_livres_lus(pseudo, livres_lu)
+
                         print(" ✔ liste des livres lu mise à jour\n")
                         val = 0
                         continuer = input("Voulez-vous noter ce livre ? o/n ")
@@ -187,31 +180,32 @@ def suggerer_livres():
                             noter_livre(True,pseudo,[livres_lu[-1]])
                             print(" ✔ Note ajoutée\n")
                         if continuer in {'non', 'Non', 'N', 'n'}:
-                            print("Vous pourrez noter ce livre à tout moment dans le menu adéquat")
+                            print("Vous pourrez noter ce livre à tout moment dans le menu \"Noter un livre\"")
 
 
 
 def creer_matrice_simi():
-    """TEMPORAIRE"""
+    """"TEMPORAIRE
     global matrice_note
     matrice_note = []
     for i in range(nombre_profils()):
         L = []
-        for j in range(19):
+        for j in range(11):
             L.append(randint(0, 5))
         matrice_note.append(L)
-    """TEMPORAIRE"""
+    TEMPORAIRE"""
 
     global matrice_simi
     matrice_simi = []
-    for i in range(nombre_profils()):
+    nb_profils=nombreDeLignes("readers.txt")
+    for i in range(nb_profils):
         L = []
-        for j in range(nombre_profils()):
+        for j in range(nb_profils):
             L.append(0)
         matrice_simi.append(L)
 
-    for i in range(nombre_profils()):
-        for j in range(nombre_profils()):
+    for i in range(nb_profils):
+        for j in range(nb_profils):
             notes1 = matrice_note[i]
             notes2 = matrice_note[j]
             sommenotes1, sommenotes2 = 0, 0
@@ -238,7 +232,8 @@ def trouver_lecteur_simi(pseudo):
                 num_ligne = i
             i += 1
     val_max = 0
-    for i in range(nombre_profils()):
+    pos_max=-1
+    for i in range(nombreDeLignes("readers.txt")):
         if i != num_ligne and val_max < matrice_simi[num_ligne][i]:
             val_max = matrice_simi[num_ligne][i]
             pos_max = i

@@ -36,7 +36,9 @@ def questions_profil():
                 break
         num_style_lect = (input("    Entrez un nombre de 1 à 7 : "))
 
-    livres_lus = ajouter_booksread()  # Affiche les livres et demande d'entrer les livres lus
+    # Affiche les livres et demande d'entrer les livres lus
+    afficher_livres()
+    livres_lus = choisir_livre()
 
     return num_genre, num_age, num_style_lect, livres_lus
 
@@ -63,7 +65,7 @@ def ajout_profil():
         print(" ✔ profil ajouté")
 
         with open('booksread.txt','a') as f_booksread:  # ajout des livres lus (si aucun livre lu, seul le pseudo apparaitra)
-            f_booksread.write(pseudo + ", " + ", ".join(livres_lu) + "\n")
+            f_booksread.write(pseudo + ", " + ", ".join(map(str,livres_lu)) + "\n")
 
         if len(livres_lu) != 0:  ## si des livres ont été ajoutés : proposition de noter les livres lus
             print(" ✔ liste des livres lu mise à jour\n")
