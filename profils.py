@@ -116,7 +116,7 @@ def modifier_profil():
                 for i in range(len(liste_livres_lu)):
                     if pseudo == liste_livres_lu[i].split(", ")[
                         0]:  # si on est à la ligne correspondant au pseudo: on la remplace par les nouveaux livres lu
-                        liste_livres_lu[i] = pseudo + ", " + ", ".join(livres_lu)
+                        liste_livres_lu[i] = pseudo + ", " + ", ".join(map(str,livres_lu))
                     liste_livres_lu[i] = liste_livres_lu[i] + '\n'  # on rajoute le retour à la ligne à chaque titre
                     f_booksread.write(liste_livres_lu[i])  # on ajoute la ligne au fichier booksread.txt
             print(" ✔ profil modifié\n")

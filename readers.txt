@@ -1,5 +1,5 @@
 Gilbert, 1, 2, 1
-William, 3, 3, 7
+William,  1,  2,  1
 AlienRoXoR17, 2, 1, 3
 anonyme,  1,  1,  1
 Lecteur_assidu, 1, 1, 3
