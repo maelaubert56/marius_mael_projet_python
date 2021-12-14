@@ -12,7 +12,7 @@ from recommandation import *
 from fonctions_generales import *
 
 
-def test_livre():  # vérifie si un livre existe dans book.txt
+def test_livre_present():  # vérifie si un livre existe dans book.txt
     nom_livre = input("Entrez le nom du livre: ")
     while len(nom_livre) != 0 and nom_livre == " ":
         nom_livre = input("Ce nom de livre n'est pas valable : ")
@@ -35,7 +35,7 @@ def ajout_livre():  # permet d'ajouter un livre à books.txt
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        nom_livre, deja_present = test_livre()  # on vérifie que le livre n'existe pas déja
+        nom_livre, deja_present = test_livre_present()  # on vérifie que le livre n'existe pas déja
         continuer = 'n'
         if deja_present:  # si le livre existe déjà, on propose de ressaisir ou de quitter
             continuer = input("Ce livre existe déjà, voulez vous saisir un autre titre de livre ? o/n ")
@@ -54,7 +54,7 @@ def modifier_livre():  # permet de modifier le titre d'un livre existant dans bo
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        nom_livre, deja_present = test_livre()  # On vérifie  que le livre est présent dans books.txt
+        nom_livre, deja_present = test_livre_present()  # On vérifie  que le livre est présent dans books.txt
         continuer = 'n'
         if deja_present == False:  # si le livre n'existe pas, on propose de ressaisir ou de quitter
             continuer = input("Ce livre n'existe pas, voulez vous saisir un autre titre de livre ? o/n ")
@@ -89,7 +89,7 @@ def supprimer_livre():  # permet de supprimer un livre dans books.txt et booksre
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        nom_livre, deja_present = test_livre()
+        nom_livre, deja_present = test_livre_present()
         continuer = 'n'
         if deja_present == False:  # si le livre n'existe pas, on propose de ressaisir ou de quitter
             continuer = input("Ce livre n'existe pas, voulez vous saisir un autre titre de livre ? o/n ")
@@ -151,7 +151,7 @@ def lire_livre():
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        pseudo, deja_present = test_pseudo()
+        pseudo, deja_present = test_pseudo_present()
         continuer = 'n'
         if deja_present == False:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
             continuer = input("Ce profil n'existe pas, voulez vous saisir un autre pseudo ? o/n ")

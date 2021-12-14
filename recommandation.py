@@ -26,7 +26,7 @@ def noter_livre(deja_present=False,pseudo="",liste_lu=[]):
         continuer = 'o'
         deja_present = False
         while continuer in {'oui', 'Oui', 'O', 'o'}:
-            pseudo, deja_present = test_pseudo()
+            pseudo, deja_present = test_pseudo_present()
             continuer = 'n'
             if deja_present == False:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
                 continuer = input("Ce profil n'existe pas, voulez vous saisir un autre pseudo ? o/n ")
@@ -122,16 +122,11 @@ def modif_matrice_note(choix, element=''):
 
 """FONCTIONS DE SIMILARITE"""
 
-
-def afficher_similarite():
-    print("afficher similarités")
-
-
 def suggerer_livres():
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        pseudo, deja_present = test_pseudo()
+        pseudo, deja_present = test_pseudo_present()
         continuer = 'n'
         if deja_present == False:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
             continuer = input("Ce profil n'existe pas, voulez vous saisir un autre pseudo ? o/n ")

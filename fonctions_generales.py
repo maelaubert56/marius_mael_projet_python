@@ -27,7 +27,7 @@ def debug_fichiers():# permet de reformater les fichiers 'txt' afin qu'ils soien
             f_booksread.write(", ".join(tab_livres_lu[i])+"\n")
 
 
-def test_pseudo():  # vérifie si un pseudo existe dans readers.txt
+def test_pseudo_present():  # vérifie si un pseudo existe dans readers.txt
     # on limite le pseudo à 20 caractère
     pseudo = input("Entrez un pseudo de 20 caractères maximum : ")
     while (len(pseudo) not in range(1, 21)) or (" " in pseudo):
@@ -97,11 +97,12 @@ def afficher_livres(all=True,pos_livres=[]):  # permet d'afficher les livres pre
 
     else:  # on affiche seulement les livres selon pos_livres avec un numéro devant pour une sélection
         with open("books.txt", "r") as f_books:
-            i = 0
+            i = 1
             for ligne in f_books:
                 if i in pos_livres:
-                    i += 1
                     print(i, "-", ligne, end="")
+                i += 1
+
         print("")
 
 def choisir_livre(liste_livres=list(range(1,nombreDeLignes("books.txt")+1))):

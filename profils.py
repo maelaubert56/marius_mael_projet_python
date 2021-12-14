@@ -48,7 +48,7 @@ def ajout_profil():
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        pseudo, deja_present = test_pseudo()
+        pseudo, deja_present = test_pseudo_present()
         continuer = 'n'
         if deja_present:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
             continuer = input("Ce pseudo existe déjà, voulez vous saisir un autre pseudo ? o/n ")
@@ -83,7 +83,7 @@ def modifier_profil():
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        pseudo, deja_present = test_pseudo()
+        pseudo, deja_present = test_pseudo_present()
         continuer = 'n'
         if deja_present == False:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
             continuer = input("Ce profil n'existe pas, voulez vous saisir un autre pseudo ? o/n ")
@@ -126,7 +126,7 @@ def suppr_profil():
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        pseudo, deja_present = test_pseudo()
+        pseudo, deja_present = test_pseudo_present()
         continuer = 'n'
         if deja_present == False:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
             continuer = input("Ce profil n'existe pas, voulez vous saisir un autre pseudo ? o/n ")
@@ -170,7 +170,7 @@ def voir_profil():
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        pseudo, deja_present = test_pseudo()
+        pseudo, deja_present = test_pseudo_present()
         continuer = 'n'
         if deja_present == False:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
             continuer = input("Ce profil n'existe pas, voulez vous saisir un autre pseudo ? o/n ")
