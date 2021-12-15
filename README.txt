@@ -17,4 +17,5 @@ Lancer le fichier ("nom du fichier") et suivre les instructions du programme.
 
 
 ### A FAIRE
-- changer les noms des fonctions par des noms plus logiques (test_livres devient presence_livre)
+empecher de mettre des virgules dans les pseudos
+ajouter commentaires

@@ -75,8 +75,38 @@ def afficher_notation():
             print(matrice_note[i][j], end=' ')
         print("")
 
+def enregistrer_matrice_notation():
+    with open("matrice_notation.txt","w") as f_matrice:
+        for i in range(len(matrice_note)):
+            f_matrice.write(",".join(map(str,matrice_note[i]))+"\n")
 
-def creer_matrice_notation():
+def recup_fichier_matrice():
+    global matrice_note
+    matrice_note=[]
+
+    with open("matrice_notation.txt", "r") as f_matrice:
+        for ligne in f_matrice:
+            matrice_note.append(list(map(int,ligne[:-1].split(","))))
+
+    #Vérification du format de la matrice
+    erreur=False
+    if (len(matrice_note) != nombreDeLignes("readers.txt")):
+        erreur=True
+    else:
+        for i in range(nombreDeLignes("books.txt")):
+            try:
+                if (len(matrice_note[i]) != nombreDeLignes("books.txt")):
+                    erreur=True
+            except IndexError:
+                erreur = True
+
+    if erreur: # si le nombre de colonnes ou de lignes ne correspond pas, on réinitialise la matrice à 0
+        print("Erreur lors de l'importation des notes...\n Réinitialisation des notes à 0")
+        reinitialiser_matrice_notation()
+
+
+
+def reinitialiser_matrice_notation():
     i, j = 0, 0
     with open('books.txt', 'r') as f_books:
         with open('readers.txt', 'r') as f_readers:
@@ -84,12 +114,12 @@ def creer_matrice_notation():
                 i = i + 1
             for ligne in f_readers:
                 j = j + 1
-
     global matrice_note
     ##crée une matrice avec [nombre de profils] lignes et [nombre de livres] colonnes
     matrice_note = [0] * j
     for k in range(j):
         matrice_note[k] = [0] * i
+    enregistrer_matrice_notation()
 
 
 def modif_matrice_note(choix, element=''):
@@ -180,16 +210,6 @@ def suggerer_livres():
 
 
 def creer_matrice_simi():
-    """"TEMPORAIRE
-    global matrice_note
-    matrice_note = []
-    for i in range(nombre_profils()):
-        L = []
-        for j in range(11):
-            L.append(randint(0, 5))
-        matrice_note.append(L)
-    TEMPORAIRE"""
-
     global matrice_simi
     matrice_simi = []
     nb_profils=nombreDeLignes("readers.txt")
@@ -217,6 +237,7 @@ def creer_matrice_simi():
                     N = N + notes1[k] * notes2[k]
                 D = sqrt(sommenotes1) * sqrt(sommenotes2)
                 matrice_simi[i][j] = round(N / D, 2)
+
 
 
 def trouver_lecteur_simi(pseudo):

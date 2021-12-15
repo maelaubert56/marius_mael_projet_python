@@ -8,7 +8,7 @@
 #   Auteurs: Maël Aubert, Marius Chevailler
 # ----------------------------------------------------------------------------
 
-def debug_fichiers():# permet de reformater les fichiers 'txt' afin qu'ils soient lisible par le prgramme sans bug
+def debug_fichiers(): # permet de reformater les fichiers 'txt' afin qu'ils soient lisible par le programme sans bug
     with open('booksread.txt','r') as f_booksread:
         tab_livres_lu=[]
         for ligne in f_booksread:
@@ -25,6 +25,28 @@ def debug_fichiers():# permet de reformater les fichiers 'txt' afin qu'ils soien
     with open('booksread.txt','w') as f_booksread: # On réécrit le fichier avec les bonnes valeurs
         for i in range(len(tab_livres_lu)):
             f_booksread.write(", ".join(tab_livres_lu[i])+"\n")
+
+def reinitialiser(element=""):
+    if element == "profils":
+        with open("readers.txt","w") as f_profils:
+            f_profils.write("")
+        with open("booksread.txt", "w") as f_booksread:
+            f_booksread.write("")
+    elif element == "lectures":
+        with open("booksread.txt","r") as f_booksread:
+            liste_pseudo=[]
+            for ligne in f_booksread:
+                liste_pseudo.append(ligne.split(", ")[0])
+        with open("booksread.txt","w") as f_booksread:
+            for pseudo in liste_pseudo:
+                f_booksread.write(pseudo+",\n")
+    elif element == "livres":
+        with open("books.txt", "w") as f_books:
+            f_books.write("")
+
+    elif element == "notes":
+        with open("matrice_notation.txt", "w") as f_matrice:
+            f_matrice.write("")
 
 
 def test_pseudo_present():  # vérifie si un pseudo existe dans readers.txt
@@ -98,11 +120,12 @@ def afficher_livres(all=True,pos_livres=[]):  # permet d'afficher les livres pre
     else:  # on affiche seulement les livres selon pos_livres avec un numéro devant pour une sélection
         with open("books.txt", "r") as f_books:
             i = 1
+            j=1
             for ligne in f_books:
                 if i in pos_livres:
-                    print(i, "-", ligne, end="")
+                    print(j, "-", ligne, end="")
+                    j+=1
                 i += 1
-
         print("")
 
 def choisir_livre(liste_livres=list(range(1,nombreDeLignes("books.txt")+1))):

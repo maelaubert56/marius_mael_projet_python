@@ -3,21 +3,24 @@
 # ----------------------------------------------------------------------------
 #   livres.py
 #   ==> comporte les fonctions nécessaires à la gestion des livres
-#   ==> détails dans le README
 #
 #   Auteurs: Maël Aubert, Marius Chevailler
 # ----------------------------------------------------------------------------
 
+#Importation des fonctions externes
 from recommandation import *
 from fonctions_generales import *
 
-
-def test_livre_present():  # vérifie si un livre existe dans book.txt
+def choix_livre(): #demande d'entrer le nom d'un livre, avec une saisie sécurisé
     nom_livre = input("Entrez le nom du livre: ")
     while len(nom_livre) != 0 and nom_livre == " ":
         nom_livre = input("Ce nom de livre n'est pas valable : ")
+    return livre
 
-    # on vérifie si le livre existe dans books.txt
+
+def test_livre_present(nom_livre):
+    # vérifie si le livre en entrée existe dans books.txt
+    # renvoie un booléen Vrai si le livre existe, Faux sinon
     deja_present = False
     with open("books.txt", "r") as f:
         for ligne in f:
@@ -26,8 +29,7 @@ def test_livre_present():  # vérifie si un livre existe dans book.txt
             if nom_livre == ligne:
                 deja_present = True
                 break
-
-    return nom_livre, deja_present
+    return deja_present
 
 
 def ajout_livre():  # permet d'ajouter un livre à books.txt
@@ -35,7 +37,8 @@ def ajout_livre():  # permet d'ajouter un livre à books.txt
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        nom_livre, deja_present = test_livre_present()  # on vérifie que le livre n'existe pas déja
+        nom_livre=choix_livre()
+        deja_present = test_livre_present(nom_livre)  # on vérifie que le livre n'existe pas déja
         continuer = 'n'
         if deja_present:  # si le livre existe déjà, on propose de ressaisir ou de quitter
             continuer = input("Ce livre existe déjà, voulez vous saisir un autre titre de livre ? o/n ")
@@ -46,7 +49,7 @@ def ajout_livre():  # permet d'ajouter un livre à books.txt
         with open('books.txt', 'a') as f_books:
             f_books.write(nom_livre + "\n")
 
-        modif_matrice_note('ajout_profil')  # on ajoute une colonne à la matrice de notation
+        modif_matrice_note('ajout_livre')  # on ajoute une colonne à la matrice de notation
         print(" ✔ livre ajouté\n")
 
 def modifier_livre():  # permet de modifier le titre d'un livre existant dans books.txt
@@ -54,7 +57,8 @@ def modifier_livre():  # permet de modifier le titre d'un livre existant dans bo
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        nom_livre, deja_present = test_livre_present()  # On vérifie  que le livre est présent dans books.txt
+        nom_livre = choix_livre()
+        deja_present = test_livre_present(nom_livre)  # On vérifie  que le livre est présent dans books.txt
         continuer = 'n'
         if deja_present == False:  # si le livre n'existe pas, on propose de ressaisir ou de quitter
             continuer = input("Ce livre n'existe pas, voulez vous saisir un autre titre de livre ? o/n ")
@@ -89,7 +93,8 @@ def supprimer_livre():  # permet de supprimer un livre dans books.txt et booksre
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        nom_livre, deja_present = test_livre_present()
+        nom_livre = choix_livre()
+        deja_present = test_livre_present(nom_livre)
         continuer = 'n'
         if deja_present == False:  # si le livre n'existe pas, on propose de ressaisir ou de quitter
             continuer = input("Ce livre n'existe pas, voulez vous saisir un autre titre de livre ? o/n ")
@@ -160,8 +165,12 @@ def lire_livre():
 
     if deja_present:
         livres_non_lus=trouver_livre_non_lus(pseudo)
-        afficher_livres(False,livres_non_lus)
-        ajouter_livres_lus(pseudo,choisir_livre(livres_non_lus))
+        if len(livres_non_lus)==0:
+            print("Vous avez déjà lu tous les livres.")
+        else:
+            livres_non_lus.sort()
+            afficher_livres(False,livres_non_lus)
+            ajouter_livres_lus(pseudo,choisir_livre(livres_non_lus))
 
 def ajouter_livres_lus(pseudo, nouveaux_livres_lus):
     with open('booksread.txt', 'r') as f_booksread:  # les livres lus sont contenus dans une nouvelle liste
