@@ -7,7 +7,6 @@
 #
 #   Auteurs: Maël Aubert, Marius Chevailler
 # ----------------------------------------------------------------------------
-
 from livres import *
 from recommandation import *
 from fonctions_generales import *
@@ -183,7 +182,6 @@ def voir_profil():
                     if "\n" in ligne:  # permet de retirer les \n a chaque retour à la ligne
                         ligne = ligne[:-1]
                     data_profil = ligne.split(", ")
-                    print(data_profil)
                     print("     ----  Affichage du profil ----")
                     print("          Pseudo :", data_profil[0])
                     print("           Genre :", genre[int(data_profil[1]) - 1])

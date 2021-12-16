@@ -149,7 +149,6 @@ def choisir_livre(liste_livres=list(range(1,nombreDeLignes("books.txt")+1))):
 
     for i in range(len(livres_lus)): # on transpose les valeurs récupéré aux emplacements réels des livres dans le fichier
         livres_lus[i]=liste_livres[livres_lus[i]-1]
-        print(livres_lus)
     return livres_lus
 
 def modifier_livres_lus(pseudo, new_liste_booksread):

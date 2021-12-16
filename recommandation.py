@@ -59,13 +59,6 @@ def noter_livre(deja_present=False,pseudo="",liste_lu=[]):
         while note.isnumeric() == False or int(note) not in range(1, 6):
             note = input("Erreur... Votre note doit être un entier comprise entre 1 et 5 :")
         note = int(note)
-        print("\n#### à suppr dans la version finale ####")
-        print("num livre:", num_livre)
-        print("liste_lu:", liste_lu)
-
-        print(liste_lu[num_livre - 1] + 1, note)
-        print("#### à suppr dans la version finale ####\n")
-
         ajouter_note(pseudo, liste_lu[num_livre - 1], note)
 
 
@@ -140,7 +133,6 @@ def modif_matrice_note(choix, element=''):
 
     elif choix == 'suppr_livre':
         M = []
-        print(len(matrice_note[0]))
         for i in range(len(matrice_note)):
             L = []
             for j in range(len(matrice_note[0])):
