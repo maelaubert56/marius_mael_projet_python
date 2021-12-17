@@ -17,5 +17,5 @@ Lancer le fichier ("nom du fichier") et suivre les instructions du programme.
 
 
 ### A FAIRE
-empecher de mettre des virgules dans les pseudos
 ajouter commentaires
+verifier bug boucle suggestions (avec exemple consignes.pdf)

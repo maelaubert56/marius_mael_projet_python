@@ -176,12 +176,11 @@ def voir_profil():
     if deja_present:
         with open('readers.txt', 'r') as f_readers:
             for ligne in f_readers:
-                if pseudo in ligne:
-                    if "\n" in ligne:  # permet de retirer les \n a chaque retour à la ligne
-                        ligne = ligne[:-1]
+                data_profil=ligne[:-1].split(", ")
+                if pseudo == data_profil[0]:
                     data_profil = ligne.split(", ")
                     print("     ----  Affichage du profil ----")
                     print("          Pseudo :", data_profil[0])
                     print("           Genre :", genre[int(data_profil[1]) - 1])
                     print("             Age :", age[int(data_profil[2]) - 1])
-                    print("Style de lecture :", style_de_lecture[int(data_profil[3]) - 1])
+                    print("Style de lecture :", style_de_lecture[int(data_profil[3]) - 1]+"\n")
