@@ -3,6 +3,8 @@
 
 ## Utilisation :
 Lancer le fichier ("main.py") et suivre les instructions du programme.
+Ne jamais quitter le programme de manière inopinée.
+Toujours quitter le programme proprement depuis le menu principal pour le bon fonctionnement de la sauvegarde des données.
 
 ### Fichiers:
 #### main.py

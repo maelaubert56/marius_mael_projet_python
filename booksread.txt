@@ -14,5 +14,4 @@ rf, 3
 proftest, 2, 3
 profiltest2, 5, 3
 profiltest1, 3, 2
-marius1, 1, 5
 marius2, 1, 5
