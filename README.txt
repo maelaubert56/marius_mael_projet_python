@@ -18,4 +18,3 @@ Lancer le fichier ("nom du fichier") et suivre les instructions du programme.
 
 ### A FAIRE
 ajouter commentaires
-verifier bug boucle suggestions (avec exemple consignes.pdf)

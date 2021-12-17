@@ -28,7 +28,7 @@ def menu_profils():
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4, ou 5 : ")
         while choix not in {"1", "2", "3", "4", "5", "6"}:  #Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4, 5 ou 6 : ")
-        print("")
+        print("\n\n")
 
         choix = int(choix)
         if choix == 1:
@@ -56,7 +56,7 @@ def menu_livres():
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4, 5, ou 6 : ")
         while choix not in {"1", "2", "3", "4", "5", "6"}:  #Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4, 5 ou 6 : ")
-        print("")
+        print("\n\n")
 
         choix = int(choix)
         if choix == 1:
@@ -84,7 +84,7 @@ def menu_recommandation():
         choix = input("\nPour faire votre choix, entrez 1, 2, 3 ou 4 : ")
         while choix not in {"1", "2", "3", "4"}:  #Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3 ou 4 : ")
-        print("")
+        print("\n\n")
 
         choix = int(choix)
         if choix == 1:
@@ -111,7 +111,7 @@ def menu_reinitialiser():
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4 ou 5 : ")
         while choix not in {"1", "2", "3", "4", "5"}:  ##Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4 ou 5 : ")
-        print("")
+        print("\n\n")
 
         choix = int(choix)
         if choix == 1:
@@ -145,7 +145,7 @@ if __name__ == '__main__':
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4 ou 5 : ")
         while choix not in {"1", "2", "3", "4", "5"}:  ## Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4 ou 5 : ")
-        print("")
+        print("\n\n")
 
         choix = int(choix)
         if choix == 1:

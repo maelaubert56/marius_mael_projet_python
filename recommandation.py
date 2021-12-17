@@ -11,52 +11,74 @@
 from livres import *
 from fonctions_generales import *
 from math import *
-from random import randint
-
-"""FONCTIONS DE NOTATION"""
+from time import time, sleep
 
 
-def ajouter_note(pseudo, num_livre, note): # ecrire note en pos_pseudo,num_livre-1
+# FONCTIONS DE NOTATION
+
+def ajouter_note(pseudo, num_livre, note):
+    """
+    But: permet d'ajouter une note à la matrice de notation
+
+    Paramètres copiées :    'pseudo' (chaine de caractères)
+                            'num_livre', 'note' (entier)
+    Paramètres modifiée : 'matrice_note' (tableau 2D)
+
+    Retour : ---
+    """
     global matrice_note
     matrice_note[pos_pseudo(pseudo)][num_livre - 1] = note
 
 
-def noter_livre(deja_present=False,pseudo="",liste_lu=[]):
-    if deja_present==False:
+def noter_livre(deja_present=False, pseudo="", liste_lu=[]):
+    """
+    But:    propose à l'utilisateur de noter un livre parmis ceux qu'il à déja lu
+            puis ajoute la note avec la fonction 'ajouter_note()'
+
+    Paramètres copiées :    'deja_present' (booléen)
+                            'pseudo' (entier)
+                            'liste_lu' (tableau 1D)
+
+    Paramètres modifiée :    'matrice_note' (tableau 2D)
+
+    Retour : ---
+    """
+    if not deja_present:
         continuer = 'o'
         deja_present = False
         while continuer in {'oui', 'Oui', 'O', 'o'}:
             pseudo, deja_present = test_pseudo_present()
             continuer = 'n'
-            if deja_present == False:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
+            if not deja_present:  # si le pseudo existe déjà, on propose de ressaisir ou de quitter
                 continuer = input("Ce profil n'existe pas, voulez vous saisir un autre pseudo ? o/n ")
                 while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
                     continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous saisir un autre pseudo ? o/n ")
 
     if deja_present:
-        if len(liste_lu)!=0:
+        if len(liste_lu) != 0:
             num_livre = 1
 
         else:
             liste_lu = trouver_livres_lu(pos_pseudo(pseudo))
             liste_lu.sort()
-            nb_livres=len(liste_lu)
-            afficher_livres(False, liste_lu) # affichage des livres disponibles et récupération du nombre de livres
-            if nb_livres == 1: # Si le lecteur n'a lu qu'un seul livre, on continue
-                num_livre=1
-            else:# sinon, choix des livres lus
+            nb_livres = len(liste_lu)
+            afficher_livres(False, liste_lu)  # affichage des livres disponibles et récupération du nombre de livres
+            if nb_livres == 1:  # Si le lecteur n'a lu qu'un seul livre, on continue
+                num_livre = 1
+            else:  # sinon, choix des livres lus
                 continuer = True
                 num_livre = input("\n\nEntrez le numéros du livre que vous voulez noter : ")
                 while continuer:
-                    if num_livre.isnumeric() == False or int(num_livre) not in range(1, nb_livres + 1):
-                        num_livre = input("Erreur... Vous devez entrez seulement un nombre entier correspondant à un livre affiché ci-dessus  : ")
+                    if not num_livre.isnumeric() or int(num_livre) not in range(1, nb_livres + 1):
+                        num_livre = input(
+                            "Erreur... Vous devez entrez seulement un nombre entier correspondant à un livre affiché ci-dessus  : ")
                     else:
                         continuer = False
                 num_livre = int(num_livre)
 
         # choix de la note
         note = input("Entrez une note pour ce livre (entre 1 et 5) : ")
-        while note.isnumeric() == False or int(note) not in range(1, 6):
+        while not note.isnumeric() or int(note) not in range(1, 6):
             note = input("Erreur... Votre note doit être un entier comprise entre 1 et 5 :")
         note = int(note)
         ajouter_note(pseudo, liste_lu[num_livre - 1], note)
@@ -68,38 +90,68 @@ def afficher_notation():
             print(matrice_note[i][j], end=' ')
         print("")
 
+
 def enregistrer_matrice_notation():
-    with open("matrice_notation.txt","w") as f_matrice:
+    """
+    But:    enregistre la matrice de notation dans un fichier afin de la sauvegarder avant de quitter le programme
+
+    Paramètres copiées :    'matrice_note' (tableau 2D)
+
+    Paramètres modifiée :   'matrice_notation.txt' (fichier texte)
+
+    Retour : ---
+    """
+    with open("matrice_notation.txt", "w") as f_matrice:
         for i in range(len(matrice_note)):
-            f_matrice.write(",".join(map(str,matrice_note[i]))+"\n")
+            f_matrice.write(",".join(map(str, matrice_note[i])) + "\n")
+
 
 def recup_fichier_matrice():
+    """
+    But:    recupère la matrice de notation dans un fichier afin de pouvoir la manipuler dans le programme
+            vérifie également que le fichier est dans le bon format, sinon, elle est réinitialisée
+
+    Paramètres copiées :    'readers.txt', 'books.txt' (fichiers texte)
+
+    Paramètres modifiée :   'matrice_notation.txt' (fichier texte)
+                            'matrice_note' (tableau 2D)
+
+    Retour : ---
+    """
     global matrice_note
-    matrice_note=[]
+    matrice_note = []
 
     with open("matrice_notation.txt", "r") as f_matrice:
         for ligne in f_matrice:
-            matrice_note.append(list(map(int,ligne[:-1].split(","))))
+            matrice_note.append(list(map(int, ligne[:-1].split(","))))
 
-    #Vérification du format de la matrice
-    erreur=False
-    if (len(matrice_note) != nombreDeLignes("readers.txt")):
-        erreur=True
+    # Vérification du format de la matrice
+    erreur = False
+    if len(matrice_note) != nombreDeLignes("readers.txt"):
+        erreur = True
     else:
         for i in range(nombreDeLignes("books.txt")):
             try:
-                if (len(matrice_note[i]) != nombreDeLignes("books.txt")):
-                    erreur=True
+                if len(matrice_note[i]) != nombreDeLignes("books.txt"):
+                    erreur = True
             except IndexError:
                 erreur = True
 
-    if erreur: # si le nombre de colonnes ou de lignes ne correspond pas, on réinitialise la matrice à 0
+    if erreur:  # si le nombre de colonnes ou de lignes ne correspond pas, on réinitialise la matrice à 0
         print("Erreur lors de l'importation des notes...\n Réinitialisation des notes à 0")
         reinitialiser_matrice_notation()
 
 
-
 def reinitialiser_matrice_notation():
+    """
+    But:    réinitialise la matrice de notation à 0
+
+    Paramètres copiées :    'readers.txt', 'books.txt' (fichiers texte)
+
+    Paramètres modifiée :   'matrice_note' (tableau 2D)
+
+    Retour : ---
+    """
     i, j = 0, 0
     with open('books.txt', 'r') as f_books:
         with open('readers.txt', 'r') as f_readers:
@@ -116,6 +168,15 @@ def reinitialiser_matrice_notation():
 
 
 def modif_matrice_note(choix, element=''):
+    """
+    But:    permet d'ajouter ou supprimer des lignes ou des colonnes de la matrice de notation selon les parametres appelés
+
+    Paramètres copiées :    'choix', 'element' (chaine de caractères)
+
+    Paramètres modifiée :   'matrice_note' (tableau 2D)
+
+    Retour : ---
+    """
     global matrice_note
     if choix == 'ajout_profil':  ## si un profil est ajouté, on ajoute une ligne (initialisée à 0 )à la matrice
         matrice_note.append([0] * len(matrice_note[0]))
@@ -144,8 +205,18 @@ def modif_matrice_note(choix, element=''):
 
 """FONCTIONS DE SIMILARITE"""
 
+
 def suggerer_livres():
-    continuer = 'o'
+    """
+    But:    permet de suggérer un livre à l'utilisateur en fonction de ses lectures et des notes que les utilisateurs ont donné aux livres
+
+    Paramètres copiées :    ---
+    Paramètres modifiée :   ---
+    Fonctions appelées :    'test_pseudo_present()', 'creer_matrice_simi()', 'trouver_lecteur_simi()', 'trouver_livres_lu()'
+                            'pos_pseudo()', 'afficher_livres()', 'modifier_livres_lus()', 'noter_livre()'
+    Retour : ---
+    """
+    continuer, pseudo = 'o', ''
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
         pseudo, deja_present = test_pseudo_present()
@@ -166,10 +237,11 @@ def suggerer_livres():
                 livres_lu_diff.append(val)
         livres_lu_diff.sort()
         if len(livres_lu_diff) == 0:
-            print("Nous ne pouvons pas vous recommander de nouveau livres car vous avez lu les mêmes livres que la personne qui à les mêmes gouts que vous...")
+            print(
+                "Nous ne pouvons pas vous recommander de nouveau livres car vous avez lu les mêmes livres que la personne qui à les mêmes gouts que vous...\n")
         else:
             afficher_livres(False, livres_lu_diff)
-            nb_livres=len(livres_lu_diff)
+            nb_livres = len(livres_lu_diff)
             # ajout du livre dans la liste des livres lu
             val = ""
             while val != 0:
@@ -194,17 +266,26 @@ def suggerer_livres():
                         while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
                             continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez-vous noter ce livre ? o/n ")
                         if continuer in {'oui', 'Oui', 'O', 'o'}:
-                            noter_livre(True,pseudo,[livres_lu[-1]])
+                            noter_livre(True, pseudo, [livres_lu[-1]])
                             print(" ✔ Note ajoutée\n")
                         if continuer in {'non', 'Non', 'N', 'n'}:
                             print("Vous pourrez noter ce livre à tout moment dans le menu \"Noter un livre\"")
 
 
-
 def creer_matrice_simi():
+    """
+    But:    crée la matrice de similarité correspondant aux notes attribuées par les profils
+            affiche également le temps de calcule de cette matrice
+
+    Paramètres copiées :    'matrice_note' (tableau 2D)
+    Paramètres modifiée :   'matrice_simi' (tableau 2D)
+    Fonctions appelées :    'nombreDeLignes()'
+    Retour : ---
+    """
+    temps_execution = time()
     global matrice_simi
     matrice_simi = []
-    nb_profils=nombreDeLignes("readers.txt")
+    nb_profils = nombreDeLignes("readers.txt")
     for i in range(nb_profils):
         L = []
         for j in range(nb_profils):
@@ -229,10 +310,21 @@ def creer_matrice_simi():
                     N = N + notes1[k] * notes2[k]
                 D = sqrt(sommenotes1) * sqrt(sommenotes2)
                 matrice_simi[i][j] = round(N / D, 2)
-
+    temps_execution = time() - temps_execution
+    print("\n ✔ Matrice calculée avec succès en {} miliseconde\n".format(round(temps_execution * (10 ** 3), 6)))
 
 
 def trouver_lecteur_simi(pseudo):
+    """
+    But:    permet de trouver un lecteur similaire au pseudo en paramètre grace à la matrice de similarité
+            renvoie la position du lecteur qui à le plus de similaritées avec le pseudo en entrée
+
+    Paramètres copiées :    'matrice_simi' (tableau 2D)
+                            'readers.txt'
+    Paramètres modifiée :   matrice_simi (tableau 2D)
+    Fonctions appelées :    nombreDeLignes()
+    Retour :    'pos_max' (entier)
+    """
     with open('readers.txt', 'r') as f_readers:
         i = 0
         for ligne in f_readers:
@@ -240,7 +332,7 @@ def trouver_lecteur_simi(pseudo):
                 num_ligne = i
             i += 1
     val_max = 0
-    pos_max=-1
+    pos_max = -1
     for i in range(nombreDeLignes("readers.txt")):
         if i != num_ligne and val_max < matrice_simi[num_ligne][i]:
             val_max = matrice_simi[num_ligne][i]
