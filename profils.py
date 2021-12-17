@@ -73,7 +73,7 @@ def ajout_profil():
 
             if noter in {'oui', 'Oui', 'O', 'o'}:
                 noter_livre(True,pseudo)
-
+                print(" ✔ livre noté avec succés ! Vous pouvez noter les autres dans le menu prévu à cet effet.\n")
 
 def modifier_profil():
     # On récupère le pseudo du profil à modifier
