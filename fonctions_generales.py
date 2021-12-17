@@ -32,6 +32,7 @@ def reinitialiser(element=""):
             f_profils.write("")
         with open("booksread.txt", "w") as f_booksread:
             f_booksread.write("")
+
     elif element == "lectures":
         with open("booksread.txt","r") as f_booksread:
             liste_pseudo=[]
@@ -40,6 +41,7 @@ def reinitialiser(element=""):
         with open("booksread.txt","w") as f_booksread:
             for pseudo in liste_pseudo:
                 f_booksread.write(pseudo+",\n")
+
     elif element == "livres":
         with open("books.txt", "w") as f_books:
             f_books.write("")
@@ -49,12 +51,15 @@ def reinitialiser(element=""):
             f_matrice.write("")
 
 
-def test_pseudo_present():  # vérifie si un pseudo existe dans readers.txt
-    # on limite le pseudo à 20 caractère
+def choix_pseudo(): #demande d'entrer un pseudo, avec une saisie sécurisé (20 caractères max)
     pseudo = input("Entrez un pseudo de 20 caractères maximum : ")
-    while (len(pseudo) not in range(1, 21)) or (" " in pseudo):
+    while (len(pseudo) not in range(1, 21)) or (" " in pseudo) or ("," in pseudo):
         pseudo = input("Ce pseudo n'est pas valable : ")
+    return pseudo
 
+
+def test_pseudo_present():  # vérifie si un pseudo existe dans readers.txt
+    pseudo=choix_pseudo()
     # on vérifie si le pseudo existe déjà
     deja_present = False
     with open("readers.txt", "r") as f:
@@ -64,7 +69,6 @@ def test_pseudo_present():  # vérifie si un pseudo existe dans readers.txt
             if pseudo == ligne.split(", ")[0]:
                 deja_present = True  # si le pseudo est présent, deja present est Vrai
                 break
-
     return pseudo, deja_present  # retourne pseudo(str) et deja_present(booléen)
 
 

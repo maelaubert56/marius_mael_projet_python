@@ -18,13 +18,11 @@ def questions_profil():
     while num_genre != "1" and num_genre != "2" and num_genre != "3":
         num_genre = (input("    Vous devez entrer la valeur 1, 2 ou 3: "))
 
-    num_age = input(
-        "\n\nQuel est votre tranche d'âge ?\n  1 <-- de moins de 18 ans\n  2 <-- de 19 à 25 ans\n  3 <-- plus de 25 ans\n     : ")
+    num_age = input("\n\nQuel est votre tranche d'âge ?\n  1 <-- de moins de 18 ans\n  2 <-- de 19 à 25 ans\n  3 <-- plus de 25 ans\n     : ")
     while num_age != "1" and num_age != "2" and num_age != "3":
         num_age = (input("    Vous devez entrer la valeur 1, 2 ou 3: "))
 
-    num_style_lect = input(
-        "\n\nQuel est votre style de lecture préféré ?\n  1 <-- Science-fiction\n  2 <-- Biographie\n  3 <-- Horreur\n  4 <-- Romance\n  5 <-- Fable\n  6 <-- Histoire\n  7 <-- Comédie\n     : ")
+    num_style_lect = input("\n\nQuel est votre style de lecture préféré ?\n  1 <-- Science-fiction\n  2 <-- Biographie\n  3 <-- Horreur\n  4 <-- Romance\n  5 <-- Fable\n  6 <-- Histoire\n  7 <-- Comédie\n     : ")
     while True:
         try:
             int(num_style_lect)

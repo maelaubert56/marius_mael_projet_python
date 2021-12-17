@@ -13,7 +13,7 @@ from fonctions_generales import *
 
 def choix_livre(): #demande d'entrer le nom d'un livre, avec une saisie sécurisé
     nom_livre = input("Entrez le nom du livre: ")
-    while len(nom_livre) != 0 and nom_livre == " ":
+    while (len(nom_livre) == 0) or (nom_livre == " ") or ("," in nom_livre):
         nom_livre = input("Ce nom de livre n'est pas valable : ")
     return livre
 
