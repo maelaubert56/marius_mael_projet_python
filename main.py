@@ -8,6 +8,13 @@
 #   Auteurs: Maël Aubert, Marius Chevailler
 # ----------------------------------------------------------------------------
 
+"""
+creer un user
+ajouter livres
+noter quelques livres
+suggerer livre"""
+
+
 # Importation des fonctions externes
 from profils import *
 from livres import *
@@ -28,7 +35,7 @@ def menu_profils():
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4, ou 5 : ")
         while choix not in {"1", "2", "3", "4", "5", "6"}:  #Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4, 5 ou 6 : ")
-        print("")
+        print("\n")
 
         choix = int(choix)
         if choix == 1:
@@ -56,7 +63,7 @@ def menu_livres():
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4, 5, ou 6 : ")
         while choix not in {"1", "2", "3", "4", "5", "6"}:  #Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4, 5 ou 6 : ")
-        print("")
+        print("\n")
 
         choix = int(choix)
         if choix == 1:
@@ -79,12 +86,11 @@ def menu_recommandation():
         print("      ----- Recommandations -----")
         print("   1 - Noter un livre")
         print("   2 - Suggérer un livre")
-        print("   3 - Afficher matrice de notation (!!! temporaire !!!)")
-        print("   4 - Retour")
-        choix = input("\nPour faire votre choix, entrez 1, 2, 3 ou 4 : ")
-        while choix not in {"1", "2", "3", "4"}:  #Saisie sécurisée
-            choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3 ou 4 : ")
-        print("")
+        print("   3 - Retour")
+        choix = input("\nPour faire votre choix, entrez 1, 2 ou 3 : ")
+        while choix not in {"1", "2", "3"}:  #Saisie sécurisée
+            choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2 ou 3: ")
+        print("\n")
 
         choix = int(choix)
         if choix == 1:
@@ -92,8 +98,6 @@ def menu_recommandation():
         elif choix == 2:
             suggerer_livres()  # permet de suggérer un livre selon les notes et les livres lus par les utilisateurs
         elif choix == 3:
-            afficher_notation()  # permet d'afficher la matrice de notation ( !!! temporaire !!!)
-        elif choix == 4:
             continuer = False # retour au menu principal
 
 
@@ -103,15 +107,15 @@ def menu_reinitialiser():
         ## menu de la partie recommandation
         print("      ----- Réinitialisation -----")
         print("Voulez vous réinitialiser : ")
-        print("   1 - profils")
-        print("   2 - liste des livres lus")
-        print("   3 - livres stockés")
-        print("   4 - notes\n")
+        print("   1 - Profils")
+        print("   2 - Liste des livres lus")
+        print("   3 - Livres stockés")
+        print("   4 - Notes\n")
         print("   5 - Retour")
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4 ou 5 : ")
         while choix not in {"1", "2", "3", "4", "5"}:  ##Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4 ou 5 : ")
-        print("")
+        print("\n")
 
         choix = int(choix)
         if choix == 1:
@@ -145,7 +149,7 @@ if __name__ == '__main__':
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4 ou 5 : ")
         while choix not in {"1", "2", "3", "4", "5"}:  ## Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4 ou 5 : ")
-        print("")
+        print("\n")
 
         choix = int(choix)
         if choix == 1:

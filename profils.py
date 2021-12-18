@@ -32,8 +32,9 @@ def questions_profil():
             if int(num_style_lect) in range(1, 8):
                 break
         num_style_lect = (input("    Entrez un nombre de 1 à 7 : "))
-
+    print("\n\nLivres dans la bibliothèque :\n")
     # Affiche les livres et demande d'entrer les livres lus
+
     afficher_livres()
     livres_lus = choisir_livre()
 
@@ -68,12 +69,13 @@ def ajout_profil():
             print(" ✔ liste des livres lu mise à jour\n")
 
             noter = input( "Voulez vous noter les livres que vous avez déja lu ? o/n ")
-            while noter not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
-                noter = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous notez les livres ? o/n ")
+            while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
+                continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous notez les livres ? o/n ")
 
             if noter in {'oui', 'Oui', 'O', 'o'}:
                 noter_livre(True,pseudo)
-                print(" ✔ livre noté avec succés ! Vous pouvez noter les autres dans le menu prévu à cet effet.\n")
+                print("\n\n")
+
 
 def modifier_profil():
     # On récupère le pseudo du profil à modifier
