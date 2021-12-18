@@ -32,8 +32,9 @@ def questions_profil():
             if int(num_style_lect) in range(1, 8):
                 break
         num_style_lect = (input("    Entrez un nombre de 1 à 7 : "))
-
+    print("\n\nLivres dans la bibliothèque :\n")
     # Affiche les livres et demande d'entrer les livres lus
+
     afficher_livres()
     livres_lus = choisir_livre()
 
@@ -73,6 +74,7 @@ def ajout_profil():
 
             if noter in {'oui', 'Oui', 'O', 'o'}:
                 noter_livre(True,pseudo)
+                print("\n\n")
 
 
 def modifier_profil():

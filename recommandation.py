@@ -82,6 +82,7 @@ def noter_livre(deja_present=False, pseudo="", liste_lu=[]):
             note = input("Erreur... Votre note doit être un entier comprise entre 1 et 5 :")
         note = int(note)
         ajouter_note(pseudo, liste_lu[num_livre - 1], note)
+        print("✔ note ajoutée")
 
 
 def afficher_notation():
