@@ -7,21 +7,20 @@
 #   Auteurs: Maël Aubert, Marius Chevailler
 # ----------------------------------------------------------------------------
 
-# Importation des fonctions externes
+#Importation des fonctions externes
 from recommandation import *
 from fonctions_generales import *
 
-
-def choix_livre():  # demande d'entrer le nom d'un livre, avec une saisie sécurisé
+def choix_livre():  #demande d'entrer le nom d'un livre, avec une saisie sécurisée
+                    # retourne le nom du livre choisis
     nom_livre = input("Entrez le nom du livre: ")
     while (len(nom_livre) == 0) or (nom_livre == " ") or ("," in nom_livre):
         nom_livre = input("Ce nom de livre n'est pas valable : ")
-    return livre
+    return nom_livre
 
 
-def test_livre_present(nom_livre):
-    # vérifie si le livre en entrée existe dans books.txt
-    # renvoie un booléen Vrai si le livre existe, Faux sinon
+def test_livre_present(nom_livre):  # vérifie si le livre en entrée existe dans books.txt
+                                    # renvoie un booléen Vrai si le livre existe, Faux sinon
     deja_present = False
     with open("books.txt", "r") as f:
         for ligne in f:
@@ -33,12 +32,12 @@ def test_livre_present(nom_livre):
     return deja_present
 
 
-def ajout_livre():  # permet d'ajouter un livre à books.txt
+def ajout_livre():  # permet d'ajouter un livre à books.txt (ajoute egalement une colonne à la matrice de notation)
     ## Récupération du nom du livre
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
-        nom_livre = choix_livre()
+        nom_livre=choix_livre()
         deja_present = test_livre_present(nom_livre)  # on vérifie que le livre n'existe pas déja
         continuer = 'n'
         if deja_present:  # si le livre existe déjà, on propose de ressaisir ou de quitter
@@ -52,7 +51,6 @@ def ajout_livre():  # permet d'ajouter un livre à books.txt
 
         modif_matrice_note('ajout_livre')  # on ajoute une colonne à la matrice de notation
         print(" ✔ livre ajouté\n")
-
 
 def modifier_livre():  # permet de modifier le titre d'un livre existant dans books.txt
     ## Récupération du nom du livre
@@ -90,8 +88,7 @@ def modifier_livre():  # permet de modifier le titre d'un livre existant dans bo
                     f_books.write(liste_books[i])  # on réécrit le fichier grace à la liste crée précedemment
             print(" ✔ livre modifié\n")
 
-
-def supprimer_livre():  # permet de supprimer un livre dans books.txt et booksread.txt
+def supprimer_livre():  # permet de supprimer un livre dans books.txt et booksread.txt (supprime une colonne dans la matrice de notation)
     ## Récupération du nom du livre
     continuer = 'o'
     deja_present = False
@@ -118,47 +115,43 @@ def supprimer_livre():  # permet de supprimer un livre dans books.txt et booksre
                     if nom_livre != ligne[:-1]:  # On ajoute les livres a une liste (sauf le livre à supprimer)
                         liste_books.append(ligne)
                     else:
-                        emplacement_suppr = i + 1  # On récupère l'emplacement de suppression pour supprimer son apparition dans d'autres fichiers
+                        emplacement_suppr = i+1  # On récupère l'emplacement de suppression pour supprimer son apparition dans d'autres fichiers
                     i += 1
             with open('books.txt', 'w') as f_books:  # on réécrit le fichier sans le livre à supprimer
                 for i in range(len(liste_books)):
                     f_books.write(liste_books[i])
-            modif_matrice_note('suppr_livre',
-                               emplacement_suppr)  # on retire la colonne correspondant au livre supprimé dans la matrice de notation
+            modif_matrice_note('suppr_livre',emplacement_suppr)  # on retire la colonne correspondant au livre supprimé dans la matrice de notation
 
             # on supprime les apparition du livre supprimé dans booksread, et on décale les positions suivantes
-            with open("booksread.txt", "r") as f_booksread:
-                newliste = []
+            with open("booksread.txt","r") as f_booksread:
+                newliste=[]
                 for ligne in f_booksread:
-                    newligne = ligne[:-1].split(", ")
-                    i = 1
-                    while i in range(1, len(newligne)):
+                    newligne=ligne[:-1].split(", ")
+                    i=1
+                    while i in range(1,len(newligne)):
                         newligne[i] = int(newligne[i])
-                        if newligne[i] == emplacement_suppr:
+                        if newligne[i]==emplacement_suppr:
                             del newligne[i]
-                            i -= 1
-                        elif newligne[i] > emplacement_suppr:
-                            newligne[i] = newligne[i] - 1
-                        i += 1
+                            i-=1
+                        elif newligne[i]>emplacement_suppr:
+                            newligne[i]=newligne[i]-1
+                        i+=1
                     newliste.append(newligne)
 
-            with open('booksread.txt',
-                      'w') as f_booksread:  # ajout des livres lus (si aucun livre lu, seul le pseudo apparaitra)
+            with open('booksread.txt','w') as f_booksread:  # ajout des livres lus (si aucun livre lu, seul le pseudo apparaitra)
                 for i in range(len(newliste)):
-                    f_booksread.write(", ".join(list(map(str, newliste[i]))) + "\n")
+                    f_booksread.write(", ".join(list(map(str,newliste[i]))) + "\n")
 
             print(" ✔ livre supprimé\n")
 
 
-def trouver_livre_non_lus(pseudo):  # retourne une liste des livres non lus par le {pseudo}
-    ensemble_livres = set(list(range(1, nombreDeLignes("books.txt") + 1)))
+def trouver_livre_non_lus(pseudo): # retourne une liste des livres non lus par le pseudo en paramètre
+    ensemble_livres = set(list(range(1,nombreDeLignes("books.txt")+1)))
     ensemble_livres_lus = set(trouver_livres_lu(pos_pseudo(pseudo)))
-    print(list(ensemble_livres - ensemble_livres_lus))
-    return list(
-        ensemble_livres - ensemble_livres_lus)  # on retire l'ensemble des livres lus à l'ensemble des livres existantes (tous les chiffres de 1 au nombre de livres)
+    print(list(ensemble_livres-ensemble_livres_lus))
+    return list(ensemble_livres-ensemble_livres_lus)# on retire l'ensemble des livres lus à l'ensemble des livres existantes (tous les chiffres de 1 au nombre de livres)
 
-
-def lire_livre():
+def lire_livre(): #propose à l'utilisateur de lire un livre ==> ajoute un livre à sa liste dans booksread.txt
     # on recupère le pseudo et on vérifie qu'il existe
     continuer = 'o'
     deja_present = False
@@ -171,16 +164,15 @@ def lire_livre():
                 continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous saisir un autre pseudo ? o/n ")
 
     if deja_present:
-        livres_non_lus = trouver_livre_non_lus(pseudo)
-        if len(livres_non_lus) == 0:
+        livres_non_lus=trouver_livre_non_lus(pseudo)
+        if len(livres_non_lus)==0:
             print("Vous avez déjà lu tous les livres.")
         else:
             livres_non_lus.sort()
-            afficher_livres(False, livres_non_lus)
-            ajouter_livres_lus(pseudo, choisir_livre(livres_non_lus))
+            afficher_livres(False,livres_non_lus)
+            ajouter_livres_lus(pseudo,choisir_livre(livres_non_lus))
 
-
-def ajouter_livres_lus(pseudo, nouveaux_livres_lus):
+def ajouter_livres_lus(pseudo, nouveaux_livres_lus): # ajoute le livre en parametre à la liste du pseudo en paramètre dans le fichier bookdsread.txt
     with open('booksread.txt', 'r') as f_booksread:  # les livres lus sont contenus dans une nouvelle liste
         liste_booksread = []
         for ligne in f_booksread:
@@ -188,6 +180,5 @@ def ajouter_livres_lus(pseudo, nouveaux_livres_lus):
     with open('booksread.txt', 'w') as f_booksread:
         for i in range(len(liste_booksread)):  # on modifie le profil souhaité grace à la liste
             if liste_booksread[i].split(", ")[0] == pseudo:
-                liste_booksread[i] = liste_booksread[i] + ", " + ", ".join(map(str, nouveaux_livres_lus))
-            f_booksread.write(liste_booksread[
-                                  i] + '\n')  # on réécrit le fichier grace à la liste crée ulterieurement + un retour a la ligne à chaque ligne
+                liste_booksread[i] = liste_booksread[i] +", "+ ", ".join(map(str,nouveaux_livres_lus))
+            f_booksread.write(liste_booksread[i]+ '\n')  # on réécrit le fichier grace à la liste crée précédement + un retour a la ligne à chaque ligne

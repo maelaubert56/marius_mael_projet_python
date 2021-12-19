@@ -2,17 +2,12 @@
 # -*- coding: utf-8 -*-
 # ----------------------------------------------------------------------------
 #   main.py
-#       ==> initialise le programme (élimination des éléments pouvant entrainer des bugs, vérification des fichiers [format, etc])
-#       ==> regroupe la boucle principal du menu ainsi que les sous-menus permettatn d'accéder aux fonctions du programme
+#       ==> initialise le programme (élimination des éléments pouvant entrainer des bugs, vérification des fichiers [format, etc..])
+#       ==> regroupe la boucle principal du menu ainsi que les sous-menus permettant d'accéder aux fonctionnalitées du programme.
 #
 #   Auteurs: Maël Aubert, Marius Chevailler
 # ----------------------------------------------------------------------------
 
-"""
-creer un user
-ajouter livres
-noter quelques livres
-suggerer livre"""
 
 # Importation des fonctions externes
 from profils import *
@@ -32,21 +27,21 @@ def menu_profils():
         print("   4 - Supprimer un profil")
         print("   5 - Retour")
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4, ou 5 : ")
-        while choix not in {"1", "2", "3", "4", "5", "6"}:  # Saisie sécurisée
+        while choix not in {"1", "2", "3", "4", "5", "6"}:  #Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4, 5 ou 6 : ")
         print("\n")
 
         choix = int(choix)
         if choix == 1:
-            ajout_profil()  # permet d'ajouter un profil (modification des fichiers associés au profil)
+            ajout_profil() #permet d'ajouter un profil (modification des fichiers associés au profil)
         elif choix == 2:
-            voir_profil()  # permet d'afficher les informations d'un profil
+            voir_profil() #permet d'afficher les informations d'un profil
         elif choix == 3:
-            modifier_profil()  # permet de modifier les informations d'un profil (modification du fichier readers.txt)
+            modifier_profil() #permet de modifier les informations d'un profil (modification du fichier readers.txt)
         elif choix == 4:
-            suppr_profil()  # permet de supprimer un profil (modification des fichiers associés au profil)
+            suppr_profil() #permet de supprimer un profil (modification des fichiers associés au profil)
         elif choix == 5:
-            continuer = False  # retour au menu principal
+            continuer = False #retour au menu principal
 
 
 def menu_livres():
@@ -60,23 +55,23 @@ def menu_livres():
         print("   5 - Supprimer un livre")
         print("   6 - Retour")
         choix = input("\nPour faire votre choix, entrez 1, 2, 3, 4, 5, ou 6 : ")
-        while choix not in {"1", "2", "3", "4", "5", "6"}:  # Saisie sécurisée
+        while choix not in {"1", "2", "3", "4", "5", "6"}:  #Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2, 3, 4, 5 ou 6 : ")
         print("\n")
 
         choix = int(choix)
         if choix == 1:
-            afficher_livres()  # permet d'afficher la liste des livres
+            afficher_livres() #permet d'afficher la liste des livres
         elif choix == 2:
-            lire_livre()  # permet d'ajouter un livre à la liste des livres lus
+            lire_livre() #permet d'ajouter un livre à la liste des livres lus
         elif choix == 3:
-            ajout_livre()  # permet d'ajouter un livre à la liste des livres
+            ajout_livre() #permet d'ajouter un livre à la liste des livres
         elif choix == 4:
-            modifier_livre()  # permet de modifier le titre d'un livre
+            modifier_livre() #permet de modifier le titre d'un livre
         elif choix == 5:
-            supprimer_livre()  # permet de supprimer un livre (modifications dans les fichiers associés au livre [décalage des données dans les fichiers])
+            supprimer_livre() # permet de supprimer un livre (modifications dans les fichiers associés au livre [décalage des données dans les fichiers])
         elif choix == 6:
-            continuer = False  # retour au menu principal
+            continuer = False # retour au menu principal
 
 
 def menu_recommandation():
@@ -87,7 +82,7 @@ def menu_recommandation():
         print("   2 - Suggérer un livre")
         print("   3 - Retour")
         choix = input("\nPour faire votre choix, entrez 1, 2 ou 3 : ")
-        while choix not in {"1", "2", "3"}:  # Saisie sécurisée
+        while choix not in {"1", "2", "3"}:  #Saisie sécurisée
             choix = input("Erreur... " + choix + " n'est pas compris dans 1, 2 ou 3: ")
         print("\n")
 
@@ -97,7 +92,7 @@ def menu_recommandation():
         elif choix == 2:
             suggerer_livres()  # permet de suggérer un livre selon les notes et les livres lus par les utilisateurs
         elif choix == 3:
-            continuer = False  # retour au menu principal
+            continuer = False # retour au menu principal
 
 
 def menu_reinitialiser():
@@ -118,23 +113,23 @@ def menu_reinitialiser():
 
         choix = int(choix)
         if choix == 1:
-            reinitialiser("profils")  # supprime tous les profils dans 'readers.txt' et dans 'booksread.txt'
+            reinitialiser("profils") # supprime tous les profils dans 'readers.txt' et dans 'booksread.txt'
         elif choix == 2:
-            reinitialiser("lectures")  # supprime les numéros des livres lus dans le fichier 'booksread.txt'
+            reinitialiser("lectures") # supprime les numéros des livres lus dans le fichier 'booksread.txt'
         elif choix == 3:
-            reinitialiser("livres")  # supprime tous les livres dans le fichier 'books.txt'
+            reinitialiser("livres") # supprime tous les livres dans le fichier 'books.txt'
         elif choix == 4:
-            reinitialiser_matrice_notation()  # permet de réinitialiser le fichier de la matrice de notation avec toutes les valeurs à 0
+            reinitialiser_matrice_notation() # permet de réinitialiser le fichier de la matrice de notation avec toutes les valeurs à 0
         elif choix == 5:
-            continuer = False  # retour au menu principal
+            continuer = False # retour au menu principal
 
 
 #############################
 # Corps du programme principal lancé à l'ouverture du programme
 if __name__ == '__main__':
-    # Initialisation
-    debug_fichiers()  # permet de reformater les fichiers 'txt' afin d'éviter les bugs par la suite
-    recup_fichier_matrice()  # recupere la matrice de notation dans le fichier et vérifie qu'elle est bien valide
+    #Initialisation
+    debug_fichiers() # permet de reformater les fichiers 'txt' afin d'éviter les bugs par la suite
+    recup_fichier_matrice() # recupere la matrice de notation dans le fichier et vérifie qu'elle est bien valide
 
     continuer = True
     while continuer:  # boucle pour afficher le menu principal en boucle jusqu'à la fermeture du programme
@@ -162,7 +157,8 @@ if __name__ == '__main__':
         else:
             continuer = False  ## permet de quitter la boucle et fermer le programme
 
-    # Sauvegarde des données avant de quitter (matrice de notation)
+
+    #Sauvegarde des données avant de quitter (matrice de notation)
     enregistrer_matrice_notation()
 
     print("      ------ Fin du programme ------")

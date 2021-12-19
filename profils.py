@@ -3,7 +3,6 @@
 # ----------------------------------------------------------------------------
 #   profils.py
 #   ==> comporte les fonctions nécessaires à la gestion des profils
-#   ==> détails dans le README
 #
 #   Auteurs: Maël Aubert, Marius Chevailler
 # ----------------------------------------------------------------------------
@@ -12,7 +11,7 @@ from recommandation import *
 from fonctions_generales import *
 
 
-def questions_profil():
+def questions_profil(): #pose les question necessaires a la création d'un profil, et renvoie 3 nombres correspondant aux choix
     # récolte des informations du profil
     num_genre = input("\n\nQuel est votre genre ?\n  1 <-- HOMME\n  2 <-- FEMME\n  3 <-- PEU IMPORTE\n     : ")
     while num_genre != "1" and num_genre != "2" and num_genre != "3":
@@ -43,7 +42,7 @@ def questions_profil():
     return num_genre, num_age, num_style_lect, livres_lus
 
 
-def ajout_profil():
+def ajout_profil(): # pose les questions nécessaire pour récolter les informations du nouveau profil et les ajoute aux fichiers readers.txt et booksread.txt (propose également de noter un livre)
     # test du pseudo dans le fichier 'readers.txt'
     continuer = 'o'
     deja_present = False
@@ -80,7 +79,7 @@ def ajout_profil():
                 print("\n\n")
 
 
-def modifier_profil():
+def modifier_profil(): #permet de modifier les informations de sexe, d'age, de style de lecture et les livres lus par profil existant
     # On récupère le pseudo du profil à modifier
     continuer = 'o'
     deja_present = False
@@ -124,7 +123,7 @@ def modifier_profil():
             print(" ✔ profil modifié\n")
 
 
-def suppr_profil():
+def suppr_profil(): #permet de supprimer un profil des fichiers readers.txt, booksread.txt ainsi que de retirer sa ligne dans la matrice de notation
     continuer = 'o'
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
@@ -165,7 +164,7 @@ def suppr_profil():
             print(" ✔ profil supprimé\n")
 
 
-def voir_profil():
+def voir_profil(): #permet d'afficher les données d'un profil (sexe, age, style de lecture)
     genre = ["Homme", "Femme", "Peu importe"]
     age = ["≤ 18 ans", "Entre 18 ans et 25 ans", "Plus de 25 ans"]
     style_de_lecture = ["Science-fiction", "Biographie", "Horreur", "Romance", "Fable", "Histoire", "Comédie"]
