@@ -314,7 +314,6 @@ def creer_matrice_simi():
     temps_execution = time() - temps_execution
     print("\n ✔ Matrice calculée avec succès en {} miliseconde\n".format(round(temps_execution * (10 ** 3), 6)))
 
-
 def trouver_lecteur_simi(pseudo):
     """
     But:    permet de trouver un lecteur similaire au pseudo en paramètre grace à la matrice de similarité
