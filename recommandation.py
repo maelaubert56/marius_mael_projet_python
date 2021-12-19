@@ -3,7 +3,6 @@
 # ----------------------------------------------------------------------------
 #   recommandation.py
 #   ==> comporte les fonctions nécessaires à la notation et aux recommandations
-#   ==> détails dans le README
 #
 #   Auteurs: Maël Aubert, Marius Chevailler
 # ----------------------------------------------------------------------------
@@ -16,16 +15,7 @@ from time import time, sleep
 
 # FONCTIONS DE NOTATION
 
-def ajouter_note(pseudo, num_livre, note):
-    """
-    But: permet d'ajouter une note à la matrice de notation
-
-    Paramètres copiées :    'pseudo' (chaine de caractères)
-                            'num_livre', 'note' (entier)
-    Paramètres modifiée : 'matrice_note' (tableau 2D)
-
-    Retour : ---
-    """
+def ajouter_note(pseudo, num_livre, note): #permet d'ajouter une note à la matrice de notation
     global matrice_note
     matrice_note[pos_pseudo(pseudo)][num_livre - 1] = note
 
@@ -85,13 +75,6 @@ def noter_livre(deja_present=False, pseudo="", liste_lu=[]):
         print("✔ note ajoutée")
 
 
-def afficher_notation():
-    for i in range(len(matrice_note)):
-        for j in range(len(matrice_note[0])):
-            print(matrice_note[i][j], end=' ')
-        print("")
-
-
 def enregistrer_matrice_notation():
     """
     But:    enregistre la matrice de notation dans un fichier afin de la sauvegarder avant de quitter le programme
@@ -105,7 +88,6 @@ def enregistrer_matrice_notation():
     with open("matrice_notation.txt", "w") as f_matrice:
         for i in range(len(matrice_note)):
             f_matrice.write(",".join(map(str, matrice_note[i])) + "\n")
-
 
 def recup_fichier_matrice():
     """

@@ -2,17 +2,11 @@
 # -*- coding: utf-8 -*-
 # ----------------------------------------------------------------------------
 #   main.py
-#       ==> initialise le programme (élimination des éléments pouvant entrainer des bugs, vérification des fichiers [format, etc])
-#       ==> regroupe la boucle principal du menu ainsi que les sous-menus permettatn d'accéder aux fonctions du programme
+#       ==> initialise le programme (élimination des éléments pouvant entrainer des bugs, vérification des fichiers [format, etc..])
+#       ==> regroupe la boucle principal du menu ainsi que les sous-menus permettant d'accéder aux fonctionnalitées du programme.
 #
 #   Auteurs: Maël Aubert, Marius Chevailler
 # ----------------------------------------------------------------------------
-
-"""
-creer un user
-ajouter livres
-noter quelques livres
-suggerer livre"""
 
 
 # Importation des fonctions externes
