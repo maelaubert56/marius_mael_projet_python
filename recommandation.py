@@ -20,19 +20,8 @@ def ajouter_note(pseudo, num_livre, note): #permet d'ajouter une note à la matr
     matrice_note[pos_pseudo(pseudo)][num_livre - 1] = note
 
 
-def noter_livre(deja_present=False, pseudo="", liste_lu=[]):
-    """
-    But:    propose à l'utilisateur de noter un livre parmis ceux qu'il à déja lu
-            puis ajoute la note avec la fonction 'ajouter_note()'
+def noter_livre(deja_present=False, pseudo="", liste_lu=[]): #propose à l'utilisateur de noter un livre parmis ceux qu'il à déja lu puis ajoute la note avec la fonction 'ajouter_note()'
 
-    Paramètres copiées :    'deja_present' (booléen)
-                            'pseudo' (entier)
-                            'liste_lu' (tableau 1D)
-
-    Paramètres modifiée :    'matrice_note' (tableau 2D)
-
-    Retour : ---
-    """
     if not deja_present:
         continuer = 'o'
         deja_present = False
@@ -76,31 +65,15 @@ def noter_livre(deja_present=False, pseudo="", liste_lu=[]):
 
 
 def enregistrer_matrice_notation():
-    """
-    But:    enregistre la matrice de notation dans un fichier afin de la sauvegarder avant de quitter le programme
+   #enregistre la matrice de notation dans un fichier afin de la sauvegarder avant de quitter le programme
 
-    Paramètres copiées :    'matrice_note' (tableau 2D)
-
-    Paramètres modifiée :   'matrice_notation.txt' (fichier texte)
-
-    Retour : ---
-    """
     with open("matrice_notation.txt", "w") as f_matrice:
         for i in range(len(matrice_note)):
             f_matrice.write(",".join(map(str, matrice_note[i])) + "\n")
 
 def recup_fichier_matrice():
-    """
-    But:    recupère la matrice de notation dans un fichier afin de pouvoir la manipuler dans le programme
-            vérifie également que le fichier est dans le bon format, sinon, elle est réinitialisée
+#recupère la matrice de notation dans un fichier afin de pouvoir la manipuler dans le programme vérifie également que le fichier est dans le bon format, sinon, elle est réinitialisée
 
-    Paramètres copiées :    'readers.txt', 'books.txt' (fichiers texte)
-
-    Paramètres modifiée :   'matrice_notation.txt' (fichier texte)
-                            'matrice_note' (tableau 2D)
-
-    Retour : ---
-    """
     global matrice_note
     matrice_note = []
 
@@ -113,12 +86,13 @@ def recup_fichier_matrice():
     if len(matrice_note) != nombreDeLignes("readers.txt"):
         erreur = True
     else:
-        for i in range(nombreDeLignes("books.txt")):
+        for i in range(nombreDeLignes("readers.txt")):
             try:
                 if len(matrice_note[i]) != nombreDeLignes("books.txt"):
                     erreur = True
             except IndexError:
                 erreur = True
+                print(i)
 
     if erreur:  # si le nombre de colonnes ou de lignes ne correspond pas, on réinitialise la matrice à 0
         print("Erreur lors de l'importation des notes...\n Réinitialisation des notes à 0")
@@ -126,15 +100,7 @@ def recup_fichier_matrice():
 
 
 def reinitialiser_matrice_notation():
-    """
-    But:    réinitialise la matrice de notation à 0
-
-    Paramètres copiées :    'readers.txt', 'books.txt' (fichiers texte)
-
-    Paramètres modifiée :   'matrice_note' (tableau 2D)
-
-    Retour : ---
-    """
+    #réinitialise la matrice de notation à 0
     i, j = 0, 0
     with open('books.txt', 'r') as f_books:
         with open('readers.txt', 'r') as f_readers:
@@ -151,15 +117,8 @@ def reinitialiser_matrice_notation():
 
 
 def modif_matrice_note(choix, element=''):
-    """
-    But:    permet d'ajouter ou supprimer des lignes ou des colonnes de la matrice de notation selon les parametres appelés
+#permet d'ajouter ou supprimer des lignes ou des colonnes de la matrice de notation selon les parametres appelés
 
-    Paramètres copiées :    'choix', 'element' (chaine de caractères)
-
-    Paramètres modifiée :   'matrice_note' (tableau 2D)
-
-    Retour : ---
-    """
     global matrice_note
     if choix == 'ajout_profil':  ## si un profil est ajouté, on ajoute une ligne (initialisée à 0 )à la matrice
         matrice_note.append([0] * len(matrice_note[0]))
@@ -190,15 +149,8 @@ def modif_matrice_note(choix, element=''):
 
 
 def suggerer_livres():
-    """
-    But:    permet de suggérer un livre à l'utilisateur en fonction de ses lectures et des notes que les utilisateurs ont donné aux livres
+#permet de suggérer un livre à l'utilisateur en fonction de ses lectures et des notes que les utilisateurs ont donné aux livres
 
-    Paramètres copiées :    ---
-    Paramètres modifiée :   ---
-    Fonctions appelées :    'test_pseudo_present()', 'creer_matrice_simi()', 'trouver_lecteur_simi()', 'trouver_livres_lu()'
-                            'pos_pseudo()', 'afficher_livres()', 'modifier_livres_lus()', 'noter_livre()'
-    Retour : ---
-    """
     continuer, pseudo = 'o', ''
     deja_present = False
     while continuer in {'oui', 'Oui', 'O', 'o'}:
@@ -255,15 +207,8 @@ def suggerer_livres():
 
 
 def creer_matrice_simi():
-    """
-    But:    crée la matrice de similarité correspondant aux notes attribuées par les profils
-            affiche également le temps de calcule de cette matrice
+#crée la matrice de similarité correspondant aux notes attribuées par les profils affiche également le temps de calcule de cette matrice
 
-    Paramètres copiées :    'matrice_note' (tableau 2D)
-    Paramètres modifiée :   'matrice_simi' (tableau 2D)
-    Fonctions appelées :    'nombreDeLignes()'
-    Retour : ---
-    """
     temps_execution = time()
     global matrice_simi
     matrice_simi = []
@@ -297,16 +242,8 @@ def creer_matrice_simi():
 
 
 def trouver_lecteur_simi(pseudo):
-    """
-    But:    permet de trouver un lecteur similaire au pseudo en paramètre grace à la matrice de similarité
-            renvoie la position du lecteur qui à le plus de similaritées avec le pseudo en entrée
+#permet de trouver un lecteur similaire au pseudo en paramètre grace à la matrice de similarité
 
-    Paramètres copiées :    'matrice_simi' (tableau 2D)
-                            'readers.txt'
-    Paramètres modifiée :   matrice_simi (tableau 2D)
-    Fonctions appelées :    nombreDeLignes()
-    Retour :    'pos_max' (entier)
-    """
     with open('readers.txt', 'r') as f_readers:
         i = 0
         for ligne in f_readers:
@@ -319,4 +256,4 @@ def trouver_lecteur_simi(pseudo):
         if i != num_ligne and val_max < matrice_simi[num_ligne][i]:
             val_max = matrice_simi[num_ligne][i]
             pos_max = i
-    return pos_max
+    return pos_max   #Retour :    'pos_max' (entier) qui renvoie la position du lecteur qui à le plus de similaritées avec le pseudo en entrée
