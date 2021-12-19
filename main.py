@@ -97,8 +97,8 @@ def menu_recommandation():
 
 def menu_reinitialiser():
     continuer = True
-    while continuer:  # boucle pour réafficher le menu des recommandations en boucle jusqu'à la fermeture du programme
-        ## menu de la partie recommandation
+    while continuer:  # boucle pour réafficher le menu de la réinitialisation en boucle jusqu'à la fermeture du programme
+        ## menu de la partie reinitialisation
         print("      ----- Réinitialisation -----")
         print("Voulez vous réinitialiser : ")
         print("   1 - Profils")
