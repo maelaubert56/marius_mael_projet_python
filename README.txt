@@ -1,20 +1,18 @@
-# Projet python - Maël Aubert et Marius Chevailler
-## Système de recommandation de livres
+Projet : Système de recommandation de livres
+L1 A - Efrei Paris
 
-## Utilisation :
-Lancer le fichier ("nom du fichier") et suivre les instructions du programme.
+Auteurs : Maël Aubert et Marius Chevailler
+mael.aubert@efrei.net - marius.chevailler@efrei.net
 
-### Fichiers:
-#### main.py
-#### profils.py
-#### livres.py
-#### recommandation.py
-#### books.txt
-#### readers.txt
-#### booksread.txt
-## Description détaillée du programme:
+#Utilisation :
+Lancer le fichier ("main.py") et suivre les instructions du programme.
 
-
-
-### A FAIRE
-ajouter commentaires
+#Fichiers: (tous ces fichiers doivent être présent dans le même dossier pour le bon fonctionnement du programme)
+main.py
+profils.py
+livres.py
+recommandation.py
+books.txt
+readers.txt
+booksread.txt
+matrice_notation.txt
