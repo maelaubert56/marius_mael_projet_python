@@ -18,11 +18,13 @@ def questions_profil():
     while num_genre != "1" and num_genre != "2" and num_genre != "3":
         num_genre = (input("    Vous devez entrer la valeur 1, 2 ou 3: "))
 
-    num_age = input("\n\nQuel est votre tranche d'âge ?\n  1 <-- de moins de 18 ans\n  2 <-- de 19 à 25 ans\n  3 <-- plus de 25 ans\n     : ")
+    num_age = input(
+        "\n\nQuel est votre tranche d'âge ?\n  1 <-- de moins de 18 ans\n  2 <-- de 19 à 25 ans\n  3 <-- plus de 25 ans\n     : ")
     while num_age != "1" and num_age != "2" and num_age != "3":
         num_age = (input("    Vous devez entrer la valeur 1, 2 ou 3: "))
 
-    num_style_lect = input("\n\nQuel est votre style de lecture préféré ?\n  1 <-- Science-fiction\n  2 <-- Biographie\n  3 <-- Horreur\n  4 <-- Romance\n  5 <-- Fable\n  6 <-- Histoire\n  7 <-- Comédie\n     : ")
+    num_style_lect = input(
+        "\n\nQuel est votre style de lecture préféré ?\n  1 <-- Science-fiction\n  2 <-- Biographie\n  3 <-- Horreur\n  4 <-- Romance\n  5 <-- Fable\n  6 <-- Histoire\n  7 <-- Comédie\n     : ")
     while True:
         try:
             int(num_style_lect)
@@ -62,18 +64,19 @@ def ajout_profil():
         modif_matrice_note('ajout_profil')
         print(" ✔ profil ajouté")
 
-        with open('booksread.txt','a') as f_booksread:  # ajout des livres lus (si aucun livre lu, seul le pseudo apparaitra)
-            f_booksread.write(pseudo + ", " + ", ".join(map(str,livres_lu)) + "\n")
+        with open('booksread.txt',
+                  'a') as f_booksread:  # ajout des livres lus (si aucun livre lu, seul le pseudo apparaitra)
+            f_booksread.write(pseudo + ", " + ", ".join(map(str, livres_lu)) + "\n")
 
         if len(livres_lu) != 0:  ## si des livres ont été ajoutés : proposition de noter les livres lus
             print(" ✔ liste des livres lu mise à jour\n")
 
-            noter = input( "Voulez vous noter les livres que vous avez déja lu ? o/n ")
+            noter = input("Voulez vous noter les livres que vous avez déja lu ? o/n ")
             while noter not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
                 noter = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous notez les livres ? o/n ")
 
             if noter in {'oui', 'Oui', 'O', 'o'}:
-                noter_livre(True,pseudo)
+                noter_livre(True, pseudo)
                 print("\n\n")
 
 
@@ -113,8 +116,9 @@ def modifier_profil():
                     liste_livres_lu.append(ligne[:-1])
             with open('booksread.txt', 'w') as f_booksread:
                 for i in range(len(liste_livres_lu)):
-                    if pseudo == liste_livres_lu[i].split(", ")[0]:  # si on est à la ligne correspondant au pseudo: on la remplace par les nouveaux livres lu
-                        liste_livres_lu[i] = pseudo + ", " + ", ".join(map(str,livres_lu))
+                    if pseudo == liste_livres_lu[i].split(", ")[
+                        0]:  # si on est à la ligne correspondant au pseudo: on la remplace par les nouveaux livres lu
+                        liste_livres_lu[i] = pseudo + ", " + ", ".join(map(str, livres_lu))
                     liste_livres_lu[i] = liste_livres_lu[i] + '\n'  # on rajoute le retour à la ligne à chaque titre
                     f_booksread.write(liste_livres_lu[i])  # on ajoute la ligne au fichier booksread.txt
             print(" ✔ profil modifié\n")
@@ -177,11 +181,11 @@ def voir_profil():
     if deja_present:
         with open('readers.txt', 'r') as f_readers:
             for ligne in f_readers:
-                data_profil=ligne[:-1].split(", ")
+                data_profil = ligne[:-1].split(", ")
                 if pseudo == data_profil[0]:
                     data_profil = ligne.split(", ")
                     print("     ----  Affichage du profil ----")
                     print("          Pseudo :", data_profil[0])
                     print("           Genre :", genre[int(data_profil[1]) - 1])
                     print("             Age :", age[int(data_profil[2]) - 1])
-                    print("Style de lecture :", style_de_lecture[int(data_profil[3]) - 1]+"\n")
+                    print("Style de lecture :", style_de_lecture[int(data_profil[3]) - 1] + "\n")

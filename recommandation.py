@@ -247,7 +247,7 @@ def suggerer_livres():
             val = ""
             while val != 0:
                 val = input(
-                        "\n\nEntrez le numéro le numéro d'un livre que vous voulez lire.\nSi vous ne voulez pas en lire, écrivez '0' : ")
+                    "\n\nEntrez le numéro le numéro d'un livre que vous voulez lire.\nSi vous ne voulez pas en lire, écrivez '0' : ")
                 try:
                     val = int(val)
                 except ValueError:
@@ -268,7 +268,7 @@ def suggerer_livres():
                             continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez-vous noter ce livre ? o/n ")
                         if continuer in {'oui', 'Oui', 'O', 'o'}:
                             noter_livre(True, pseudo, [livres_lu[-1]])
-                        else :
+                        else:
                             print("Vous pourrez noter ce livre à tout moment dans le menu \"Noter un livre\"")
 
 
@@ -312,6 +312,7 @@ def creer_matrice_simi():
                 matrice_simi[i][j] = round(N / D, 2)
     temps_execution = time() - temps_execution
     print("\n ✔ Matrice calculée avec succès en {} miliseconde\n".format(round(temps_execution * (10 ** 3), 6)))
+
 
 def trouver_lecteur_simi(pseudo):
     """
