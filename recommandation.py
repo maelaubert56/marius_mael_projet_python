@@ -62,7 +62,7 @@ def noter_livre(deja_present=False, pseudo="", liste_lu=[]):
             liste_lu = trouver_livres_lu(pos_pseudo(pseudo))
             liste_lu.sort()
             nb_livres = len(liste_lu)
-            afficher_livres(False, liste_lu)  # affichage des livres disponibles et récupération du nombre de livres
+            afficher_livres(False, liste_lu)  # affichage des livres disponibles
             if nb_livres == 1:  # Si le lecteur n'a lu qu'un seul livre, on continue
                 num_livre = 1
             else:  # sinon, choix des livres lus
