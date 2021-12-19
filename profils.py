@@ -69,8 +69,8 @@ def ajout_profil():
             print(" ✔ liste des livres lu mise à jour\n")
 
             noter = input( "Voulez vous noter les livres que vous avez déja lu ? o/n ")
-            while continuer not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
-                continuer = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous notez les livres ? o/n ")
+            while noter not in {'oui', 'Oui', 'O', 'o', 'non', 'Non', 'N', 'n'}:
+                noter = input("Vous devez répondre 'o' ou 'n'...\nVoulez vous notez les livres ? o/n ")
 
             if noter in {'oui', 'Oui', 'O', 'o'}:
                 noter_livre(True,pseudo)
@@ -113,8 +113,7 @@ def modifier_profil():
                     liste_livres_lu.append(ligne[:-1])
             with open('booksread.txt', 'w') as f_booksread:
                 for i in range(len(liste_livres_lu)):
-                    if pseudo == liste_livres_lu[i].split(", ")[
-                        0]:  # si on est à la ligne correspondant au pseudo: on la remplace par les nouveaux livres lu
+                    if pseudo == liste_livres_lu[i].split(", ")[0]:  # si on est à la ligne correspondant au pseudo: on la remplace par les nouveaux livres lu
                         liste_livres_lu[i] = pseudo + ", " + ", ".join(map(str,livres_lu))
                     liste_livres_lu[i] = liste_livres_lu[i] + '\n'  # on rajoute le retour à la ligne à chaque titre
                     f_booksread.write(liste_livres_lu[i])  # on ajoute la ligne au fichier booksread.txt
