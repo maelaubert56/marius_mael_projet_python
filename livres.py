@@ -148,7 +148,6 @@ def supprimer_livre():  # permet de supprimer un livre dans books.txt et booksre
 def trouver_livre_non_lus(pseudo): # retourne une liste des livres non lus par le pseudo en paramètre
     ensemble_livres = set(list(range(1,nombreDeLignes("books.txt")+1)))
     ensemble_livres_lus = set(trouver_livres_lu(pos_pseudo(pseudo)))
-    print(list(ensemble_livres-ensemble_livres_lus))
     return list(ensemble_livres-ensemble_livres_lus)# on retire l'ensemble des livres lus à l'ensemble des livres existantes (tous les chiffres de 1 au nombre de livres)
 
 def lire_livre(): #propose à l'utilisateur de lire un livre ==> ajoute un livre à sa liste dans booksread.txt

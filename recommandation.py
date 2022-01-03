@@ -237,6 +237,7 @@ def creer_matrice_simi():
                     N = N + notes1[k] * notes2[k]
                 D = sqrt(sommenotes1) * sqrt(sommenotes2)
                 matrice_simi[i][j] = round(N / D, 2)
+    sleep(0.0000000000000001)
     temps_execution = time() - temps_execution
     print("\n ✔ Matrice calculée avec succès en {} miliseconde\n".format(round(temps_execution * (10 ** 3), 6)))
 
